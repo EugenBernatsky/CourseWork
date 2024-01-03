@@ -3,21 +3,33 @@
 }
 
 
-<form>
-     Для логына
-     <label>
-           Password
-     </label>
-    <input />
-</form>
+<div class="auth-wrapper">
+    <div class="login-form-wrapper">
+        <form class="login-form">
+            <label for="login-name">Name</label>
+            <input type="text" required id="login-name" name="name" />
+            <label for="login-password">Password</label>
+            <input type="password" id="login-password" name="password"/>
+            <button type="submit">Login</button>
+        </form>
+        @* <button type="submit">Create Account</button> *@
+    </div>
+    
+    <div class="registration-form-wrapper">
+        <form class="registration-form">
+            <label for="register-name">Name</label>
+            <input type="text" required id="register-name" name="name"/>
+            <label for="register-password">Password</label>
+            <input type="password" id="register-password" name="password"/>
+            <label for="register-email">Email</label>
+            <input type="email" id="register-email" name="email" />
+            <label for="register-phone">Phone</label>
+            <input type="tel" id="register-phone" name="phone" />
+            <button type="submit">Register</button>
+        </form>
+    </div>
+    
+</div>
 
-<form>
-     Если логин не подходит то поля регистрации .....
-
-     <label>
-           Password
-     </label>
-    <input />
-</form>
 
 

@@ -1,8 +1,254 @@
-﻿
+﻿@model MVCFoodProject.Models.ViewModels.AdminPageViewModel
 @{
     ViewData["Title"] = "AdminPage";
 }
 
+
+
 <div>
-    Hello
+    <div class="main-container-pizza">
+        <div id="pizza-id" class="pizza-title">
+            <div class="pizza-name">
+                Піца
+            </div>
+            <select class="pizza-sort">
+                <option value="ASC">ASC</option>
+                <option value="DESC">DESC</option>
+            </select>
+        </div>
+        <div class="container-pizza product-container">
+            @foreach (var item in Model.Products)
+            {
+                if (item.CategoryType == "PIZZA")
+                {
+                    <div class="product-card" data-id="@item.InternalId">
+                        <span>
+                            @if (item.IsActive)
+                            {
+                                <span>Активний</span>
+                            }
+                            else
+                            {
+                                <span>Неактивний</span>
+                            }
+                        </span>
+                        <div class="product-img">
+                            <img src="@item.ProductsDetails.imgURL" />
+                        </div>
+                        <div class="product-name">
+                            @item.ProductsDetails.ProductName
+                        </div>
+                        <div class="product-description">
+                            @item.ProductsDetails.Description
+                        </div>
+                        <div class="product-footer">
+                            <div class="product-price">
+                                @item.ProductsDetails.Price ₴
+                            </div>
+                            <div class="product-order-btn">
+                                <button data-product-id="@item.InternalId">Змінити</button>
+                                <button data-product-id="@item.InternalId">Вимкнути</button>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+
+    <div class="main-container-sushi">
+        <div id="sushi-id" class="sushi-title">
+            <div class="sushi-name">
+                Суші
+            </div>
+            <select class="sushi-sort" onchange="onSortCategory(event, 'sushi')">
+                <option value="ASC">ASC</option>
+                <option value="DESC">DESC</option>
+            </select>
+        </div>
+        <div class="container-sushi product-container">
+            @foreach (var item in Model.Products)
+            {
+                if (item.CategoryType == "SUSHI")
+                {
+                    <div class="product-card" data-id="@item.InternalId">
+                        <span>
+                            @if (item.IsActive)
+                            {
+                                <span>Активний</span>
+                            }
+                            else
+                            {
+                                <span>Неактивний</span>
+                            }
+                        </span>
+                        <div class="product-img">
+                            <img src="@item.ProductsDetails.imgURL" />
+                        </div>
+                        <div class="product-name">
+                            @item.ProductsDetails.ProductName
+                        </div>
+                        <div class="product-description">
+                            @item.ProductsDetails.Description
+                        </div>
+                        <div class="product-footer">
+                            <div class="product-price">
+                                @item.ProductsDetails.Price ₴
+                            </div>
+                            <div class="product-order-btn">
+                                <button data-product-id="@item.InternalId">Змінити</button>
+                                <button data-product-id="@item.InternalId">Вимкнути</button>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+
+    <div class="main-container-sushisets">
+        <div id="sushisets-id" class="sushisets-title">
+            <div class="sushisets-name">
+                Сети
+            </div>
+            <div class="sushisets-sort">
+                Сортування
+            </div>
+        </div>
+        <div class="container-sushisets product-container">
+            @foreach (var item in Model.Products)
+            {
+                if (item.CategoryType == "SUSHISETS")
+                {
+                    <div class="product-card" data-id="@item.InternalId">
+                        <span>
+                            @if (item.IsActive)
+                            {
+                                <span>Активний</span>
+                            }
+                            else
+                            {
+                                <span>Неактивний</span>
+                            }
+                        </span>
+                        <div class="product-img">
+                            <img src="@item.ProductsDetails.imgURL" />
+                        </div>
+                        <div class="product-name">
+                            @item.ProductsDetails.ProductName
+                        </div>
+                        <div class="product-description">
+                            @item.ProductsDetails.Description
+                        </div>
+                        <div class="product-footer">
+                            <div class="product-price">
+                                @item.ProductsDetails.Price ₴
+                            </div>
+                            <div class="product-order-btn">
+                                <button data-product-id="@item.InternalId">Змінити</button>
+                                <button data-product-id="@item.InternalId">Вимкнути</button>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+
+    <div class="main-container-salat">
+        <div id="salat-id" class="salat-title">
+            <div class="salat-name">
+                Салати
+            </div>
+            <div class="salat-sort">
+                Сортування
+            </div>
+        </div>
+        <div class="container-salat product-container">
+            @foreach (var item in Model.Products)
+            {
+                if (item.CategoryType == "SALATS")
+                {
+                    <div class="product-card" data-id="@item.InternalId">
+                        <span>
+                            @if (item.IsActive)
+                            {
+                                <span>Активний</span>
+                            }
+                            else {
+                                <span>Неактивний</span>
+                            }
+                        </span>
+                        <div class="product-img">
+                            <img src="@item.ProductsDetails.imgURL" />
+                        </div>
+                        <div class="product-name">
+                            @item.ProductsDetails.ProductName
+                        </div>
+                        <div class="product-description">
+                            @item.ProductsDetails.Description
+                        </div>
+                        <div class="product-footer">
+                            <div class="product-price">
+                                @item.ProductsDetails.Price ₴
+                            </div>
+                            <div class="product-order-btn">
+                                <button data-product-id="@item.InternalId">Змінити</button>
+                                <button data-product-id="@item.InternalId">Вимкнути</button>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+
+    <div class="main-container-drinks">
+        <div id="drinks-id" class="drinks-title">
+            <div class="drinks-name">
+                Напої
+            </div>
+            <div class="drinks-sort">
+                Сортування
+            </div>
+        </div>
+        <div class="container-drinks product-container">
+            @foreach (var item in Model.Products)
+            {
+                if (item.CategoryType == "DRINKS")
+                {
+                    <div class="product-card" data-id="@item.InternalId">
+                        <span>
+                            @if (item.IsActive)
+                            {
+                                <span>Активний</span>
+                            }
+                            else
+                            {
+                                <span>Неактивний</span>
+                            }
+                        </span>
+                        <div class="product-img">
+                            <img src="@item.ProductsDetails.imgURL" />
+                        </div>
+                        <div class="product-name">
+                            @item.ProductsDetails.ProductName
+                        </div>
+                        <div class="product-description">
+                            @item.ProductsDetails.Description
+                        </div>
+                        <div class="product-footer">
+                            <div class="product-price">
+                                @item.ProductsDetails.Price ₴
+                            </div>
+                            <div class="product-order-btn">
+                                <button data-product-id="@item.InternalId">Змінити</button>
+                                <button data-product-id="@item.InternalId">Вимкнути</button>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
 </div>
