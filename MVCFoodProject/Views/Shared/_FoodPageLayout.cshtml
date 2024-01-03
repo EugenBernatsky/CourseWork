@@ -1,0 +1,98 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@400;600;800&family=Encode+Sans+Semi+Expanded:wght@400;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <title>@ViewData["Title"]</title>
+</head>
+
+
+<body>
+    <div class="modal modal-cart modal-fade">
+        <div class="modal-backdrop"></div>
+        <div class="modal-dialog">
+            <div class="modal-header">Кошик <span class="cart-items-count"></span></div>
+            <div class="modal-body">
+                <div class="steeper cart-steeper">
+                    <div class="step checkout-step">
+                        <div class="cart-products-list">
+                            Пусто
+                        </div>
+                         <div class="button-group">
+                            <button class="step-button step-button-next" data-action="next">оплатити</button>
+                         </div>
+                         <div class="cart-total-price"></div>
+                    </div>
+                    <div class="step delivery-adress-step">
+                        <div class="tabs-container">
+                            <ul class="tabs-navigation">
+                                <li>
+                                    <button data-toggle="test1">Test 1</button>
+                                </li>
+                                <li>
+                                    <button data-toggle="test2">Test 2</button>
+                                </li>
+                            </ul>
+                
+                            <div class="tabs">
+                                <div class="tab visible" id="test1">
+                                    Test 1
+                                </div>
+                                
+                                <div class="tab" id="test2">
+                                    Test 2
+                                </div>
+                            </div>
+                        </div>
+                         <div class="button-group">
+                            <button class="step-button step-button-next" data-action="prev">назад</button>
+                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="header" id="myHeader">
+        <div class = "header-line">
+                <div>
+                    <a class=" header-logo" id="FoodDelivery" href="#FoodDelivery">FoodDelivery</a>
+                </div>
+
+                <div class="nav">
+                    <a class="nav-item" href="#pizza-id"> <img class="pizza-icon" src="~/assets/pizza.png" alt=""> Піца </a>
+                    <a class="nav-item" href="#sushi-id"> <img class="sushi-icon" src="~/assets/sushi.png" alt=""> Суші </a>
+                    <a class="nav-item" href="#sushisets-id"> <img class="sushisets-icon" src="~/assets/sushisets.png" alt=""> Сети </a>
+                    <a class="nav-item" href="#salat-id"> <img class="salat-icon" src="~/assets/salat.png" alt=""> Салати </a>
+                    <a class="nav-item" href="#drinks-id"> <img class="drinks-icon" src="~/assets/drinks.png" alt=""> Напої </a>
+                </div>
+
+                <div class="number-and-cart">
+                    <a class="number" href="tel:380937395891">
+                        <div class="phone-icon-and-text"> <img class="phone-icon" src="~/assets/phone.png" alt=""> +093-433-56-33 </div>
+                        <div> Для зв'язку</div>
+                    </a>
+
+                    <div class="cart cart-button">
+                        <div class="cart-icon-and-text" href="#">Кошик 
+                            <img class="cart-icon" src="~/assets/cart.png" alt="">
+                            <span class="cart-items-count"></span>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+
+    <div class="main">
+        @RenderBody()
+    </div>
+    
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

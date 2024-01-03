@@ -1,0 +1,65 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Programs\\C# summer practice\\MVCFoodProject\\MVCFoodProject\\wwwroot\\assets\\615px-Food_Network_New_Logo.png",
+      "PackagePath": "staticwebassets\\assets\\615px-Food_Network_New_Logo.png"
+    },
+    {
+      "Id": "C:\\Programs\\C# summer practice\\MVCFoodProject\\MVCFoodProject\\wwwroot\\assets\\cart.png",
+      "PackagePath": "staticwebassets\\assets\\cart.png"
+    },
+    {
+      "Id": "C:\\Programs\\C# summer practice\\MVCFoodProject\\MVCFoodProject\\wwwroot\\assets\\drinks.png",
+      "PackagePath": "staticwebassets\\assets\\drinks.png"
+    },
+    {
+      "Id": "C:\\Programs\\C# summer practice\\MVCFoodProject\\MVCFoodProject\\wwwroot\\assets\\phone.png",
+      "PackagePath": "staticwebassets\\assets\\phone.png"
+    },
+    {
+      "Id": "C:\\Programs\\C# summer practice\\MVCFoodProject\\MVCFoodProject\\wwwroot\\assets\\pizza.png",
+      "PackagePath": "staticwebassets\\assets\\pizza.png"
+    },
+    {
+      "Id": "C:\\Programs\\C# summer practice\\MVCFoodProject\\MVCFoodProject\\wwwroot\\assets\\salat.png",
+      "PackagePath": "staticwebassets\\assets\\salat.png"
+    },
+    {
+      "Id": "C:\\Programs\\C# summer practice\\MVCFoodProject\\MVCFoodProject\\wwwroot\\assets\\sushi.png",
+      "PackagePath": "staticwebassets\\assets\\sushi.png"
+    },
+    {
+      "Id": "C:\\Programs\\C# summer practice\\MVCFoodProject\\MVCFoodProject\\wwwroot\\assets\\sushisets.png",
+      "PackagePath": "staticwebassets\\assets\\sushisets.png"
+    },
+    {
+      "Id": "C:\\Programs\\C# summer practice\\MVCFoodProject\\MVCFoodProject\\wwwroot\\css\\site.css",
+      "PackagePath": "staticwebassets\\css\\site.css"
+    },
+    {
+      "Id": "C:\\Programs\\C# summer practice\\MVCFoodProject\\MVCFoodProject\\wwwroot\\favicon.ico",
+      "PackagePath": "staticwebassets\\favicon.ico"
+    },
+    {
+      "Id": "C:\\Programs\\C# summer practice\\MVCFoodProject\\MVCFoodProject\\wwwroot\\js\\site.js",
+      "PackagePath": "staticwebassets\\js\\site.js"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.MVCFoodProject.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.build.MVCFoodProject.props",
+      "PackagePath": "build\\MVCFoodProject.props"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.buildMultiTargeting.MVCFoodProject.props",
+      "PackagePath": "buildMultiTargeting\\MVCFoodProject.props"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.buildTransitive.MVCFoodProject.props",
+      "PackagePath": "buildTransitive\\MVCFoodProject.props"
+    }
+  ],
+  "ElementsToRemove": []
+}
