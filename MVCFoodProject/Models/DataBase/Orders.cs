@@ -7,9 +7,9 @@
 
         public DateTime CreatedDate { get; set; } = DateTime.Now;
 
-        public string UserId { get; set; }
+        public Users User { get; set; }
 
-        public string CourierID { get; set; }
+        public Courier? Courier { get; set; }
 
         public ICollection<ProductOrders> ProductOrders { get; set; }
 

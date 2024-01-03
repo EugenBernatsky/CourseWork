@@ -7,13 +7,11 @@ namespace MVCFoodProject.Models.DataBase
         [Key]
         public int Id { get; set; }
 
-        public string Name { get; set; }
-
-        public Orders? Order { get; set; }
-
-        public string imgURl { get; set; }
-
+        public ICollection<Orders>? Order { get; set; }
+ 
         public Status status { get; set; } = Status.free;
+
+        public Users? User { get; set; }
 
         public enum Status
         {

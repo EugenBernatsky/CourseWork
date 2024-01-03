@@ -16,7 +16,7 @@
 
         public string UID { get; set; }
 
-        public Orders? UserOrders { get; set; }
+        public ICollection<Orders>? UserOrders { get; set; }
 
         public UserRole Role { get; set; } = UserRole.Customer;
 
