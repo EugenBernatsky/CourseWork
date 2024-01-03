@@ -8,6 +8,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@400;600;800&family=Encode+Sans+Semi+Expanded:wght@400;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <title>@ViewData["Title"]</title>
+
+    <script src="~/js/common.js" asp-append-version="true"></script>
 </head>
 
 
@@ -91,6 +93,7 @@
         @RenderBody()
     </div>
     
+
     <script src="~/js/site.js" asp-append-version="true"></script>
 
     @await RenderSectionAsync("Scripts", required: false)

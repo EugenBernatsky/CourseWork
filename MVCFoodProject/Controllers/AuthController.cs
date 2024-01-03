@@ -48,7 +48,13 @@ namespace MVCFoodProject.Controllers
                 {
                     var token = GenerateToken(login.Username, getUserRole(internalUser.Role));
 
-                    return Ok(token);
+
+                    return Ok(new UserProfile
+                    {
+                        token = token,
+                        role = getUserRole(internalUser.Role),
+                        userId = user.Result.Id
+                    });
                 } else
                 {
                     return BadRequest("Login Failed");
@@ -81,8 +87,14 @@ namespace MVCFoodProject.Controllers
 
                 await _db.SaveChangesAsync();
 
+                var token = GenerateToken(body.username, getUserRole(Users.UserRole.Customer));
 
-                return Ok();
+                return Ok(new UserProfile
+                {
+                    token = token,
+                    role = getUserRole(Users.UserRole.Customer),
+                    userId = user.Id
+                });
             }
             else
             {

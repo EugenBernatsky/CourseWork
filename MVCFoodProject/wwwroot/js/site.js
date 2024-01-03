@@ -1,7 +1,4 @@
-﻿// Global Variables 
-const API_BASE = 'https://localhost:7280'
-//
-
+﻿
 class Modal {
     constructor(options = {}) {
         this._validateArgs(options);
@@ -243,27 +240,6 @@ class ProductsView {
     }
 }
 
-class ApiClient {
-    constructor(options = {}) {
-        this._apiBase = options.apiBase;
-    }
-
-    get(path, options = {}) {
-        return this._requestHelper(path, { ...options })
-            .then(response => {
-                const contentType = response.headers.get("content-type");
-
-                if (contentType && contentType.indexOf("application/json") !== -1) {
-                    return response.json();
-                }
-            })
-    }
-
-    _requestHelper(path, options) {
-        return fetch(`${this._apiBase}${path}`, options)
-    }
-}
-
 class ProductViewModel {
     constructor(apiClient = new ApiClient({ apiBase: API_BASE })) {
         this._pizzaProducts = [];
@@ -369,7 +345,6 @@ class ProductViewModel {
         return [...this._pizzaProducts, ...this._sushiProducts, this._drinksProducts];
     }
 }
-
 
 
 const productViewModelInstance = new ProductViewModel();
