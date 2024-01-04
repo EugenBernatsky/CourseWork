@@ -38,7 +38,7 @@ namespace MVCFoodProject.Controllers
 
             if (role != "admin")
             {
-                return RedirectToAction(null, "Login");
+                return RedirectToAction(null, "FoodPage");
             }
 
             var products = await _db.Products
@@ -63,5 +63,6 @@ namespace MVCFoodProject.Controllers
 
             return new AdminPageViewModel { UsersList = users };
         }
+
     }
 }
