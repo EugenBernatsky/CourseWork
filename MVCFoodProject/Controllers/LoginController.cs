@@ -36,12 +36,12 @@ namespace MVCFoodProject.Controllers
             // TODO
             if (role == "customer")
             {
-                return RedirectToAction(null, "FoodPage");
+                return RedirectToAction(null, "CustomerPage");
             }
 
             if (role == "courier")
             {
-                return RedirectToAction(null, "FoodPage");
+                return RedirectToAction(null, "CourierPage");
             }
 
             return View();

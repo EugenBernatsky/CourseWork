@@ -15,13 +15,14 @@
 
         public int TotalPrice { get; set; }
 
-        public Status status { get; set; } = Status.Taken;
+        public Status status { get; set; } = Status.Created;
 
         public enum Status
         {
             Taken,
             Canceled,
-            Completed
+            Completed,
+            Created
         }
     }
 }

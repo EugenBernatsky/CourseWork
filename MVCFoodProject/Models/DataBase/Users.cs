@@ -20,6 +20,12 @@
 
         public UserRole Role { get; set; } = UserRole.Customer;
 
+        public static implicit operator List<object>(Users v)
+        {
+            //For what?
+            throw new NotImplementedException();
+        }
+
         public enum UserRole
         {
             Admin,
