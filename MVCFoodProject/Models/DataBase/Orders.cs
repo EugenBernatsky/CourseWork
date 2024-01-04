@@ -7,9 +7,13 @@
 
         public DateTime CreatedDate { get; set; } = DateTime.Now;
 
-        public Users User { get; set; }
+        public int? UserId { get; set; }
 
-        public Courier? Courier { get; set; }
+        public virtual Users User { get; set; }
+
+        public int? CourierId { get; set; }
+
+        public virtual Courier? Courier { get; set; }
 
         public ICollection<ProductOrders> ProductOrders { get; set; }
 
