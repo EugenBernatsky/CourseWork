@@ -21,47 +21,57 @@ namespace MVCFoodProject.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
-            var identity = Request.Cookies["identity"];
+            var contextUser = (Users)HttpContext.Items["User"];
 
-
-            if (identity == null)
+            if ((contextUser == null) || (contextUser.Role != Users.UserRole.Admin))
             {
                 return RedirectToAction(null, "FoodPage");
             }
 
-            JwtSecurityToken decodedToken = new JwtSecurityToken(identity);
+            return View();
+        }
 
-            var role = decodedToken.Claims
-                .Where(c => c.Type == ClaimTypes.Role)
-                .Select(c => c.Value)
-                .SingleOrDefault();
+        [AllowAnonymous]
+        public async Task<IActionResult> ProductsPage()
+        {
+            var contextUser = (Users)HttpContext.Items["User"];
 
-            if (role != "admin")
+            if ((contextUser == null) || (contextUser.Role != Users.UserRole.Admin))
             {
                 return RedirectToAction(null, "FoodPage");
             }
 
             var products = await _db.Products
-                 .Where(p => p.IsActive == true)
                  .Include(p => p.ProductsDetails)
+                 .OrderBy(p => p.ProductsDetails.ProductName)
                  .ToListAsync();
 
             return View(new AdminPageViewModel { Products = products });
         }
 
+
+
         [AllowAnonymous]
         public async Task<object> UsersPage ()
         {
+            var contextUser = (Users)HttpContext.Items["User"];
+
+            if ((contextUser == null) || (contextUser.Role != Users.UserRole.Admin))
+            {
+                return RedirectToAction(null, "FoodPage");
+            }
 
             var users = await _db.User
                 .Where(u => u.Role == Users.UserRole.Customer)
+                .Include(u => u.UserOrders)
+                .ThenInclude(userOrder => userOrder.Courier)
                 .Include(u => u.UserOrders)
                 .ThenInclude(uo => uo.ProductOrders)
                 .ThenInclude(po => po.Product)
                 .ThenInclude(p => p.ProductsDetails)
                 .ToListAsync();
 
-            return new AdminPageViewModel { UsersList = users };
+            return View(new AdminPageViewModel { UsersList = users });
         }
 
     }
