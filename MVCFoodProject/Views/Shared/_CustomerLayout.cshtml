@@ -12,11 +12,19 @@
     <script src="~/js/common.js" asp-append-version="true"></script>
 </head>
 
-
 <body>
     <header style="padding-bottom: 70px">
         <nav>
             @Html.ActionLink("Current Orders", "CurrentOrdersPage", "CustomerPage")
+        </nav>
+        <nav>
+            @Html.ActionLink("All Orders", "AllOrdersPage", "CustomerPage")
+        </nav>
+        <nav>
+            @Html.ActionLink("Profile", "Index", "CustomerPage")
+        </nav>
+        <nav>
+            @Html.ActionLink("Food Page", "Index", "FoodPage")
         </nav>
     </header>
     <main>

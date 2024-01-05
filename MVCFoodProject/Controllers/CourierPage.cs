@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Data;
 using System.IdentityModel.Tokens.Jwt;
@@ -12,6 +13,7 @@ namespace MVCFoodProject.Controllers
     public class CourierPage : Controller
     {
         private readonly ApplicationDbContext _db;
+        
         public CourierPage(ApplicationDbContext context)
         {
             _db = context;
@@ -20,68 +22,64 @@ namespace MVCFoodProject.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
-            var identity = Request.Cookies["identity"];
+            var contextUser = (Users)HttpContext.Items["User"];
 
-            if (identity == null)
+            if ((contextUser == null) || (contextUser.Role != Users.UserRole.Courier))
             {
                 return RedirectToAction(null, "FoodPage");
             }
 
-            JwtSecurityToken decodedToken = new JwtSecurityToken(identity);
-
-            var role = decodedToken.Claims
-                .Where(c => c.Type == ClaimTypes.Role)
-                .Select(c => c.Value)
-                .SingleOrDefault();
-
-            if (role != "courier")
-            {
-                return RedirectToAction(null, "CourierPage");
-            }
-
-            var userId = decodedToken.Claims
-            .Where(c => c.Type == ClaimTypes.NameIdentifier)
-            .Select(c => c.Value)
-            .SingleOrDefault();
-
-            var courier = await _db.Courier
-                .Where(c => c.User.UID == userId)
+            var user = await _db.User
+                .Where(u => u.Id == contextUser.Id)
                 .FirstOrDefaultAsync();
 
-            return View(new CourierPageViewModel { Courier = courier });
+            return View(new CourierPageViewModel { User = user });
         }
 
         [AllowAnonymous]
         public async Task<object> TakeOrdersPage()
         {
-            var identity = Request.Cookies["identity"];
+            var orders = await _db.Order
+                .Where(o => o.status == Orders.Status.Created)
+                .Include(o => o.User)
+                .ToListAsync();
 
-            if (identity != null)
-            {
-                JwtSecurityToken decodedToken = new JwtSecurityToken(identity);
+            return new CourierPageViewModel { Order = orders };
+        }
 
-                var userId = decodedToken.Claims
-                    .Where(c => c.Type == ClaimTypes.NameIdentifier)
-                    .Select(c => c.Value)
-                    .SingleOrDefault();
+        [AllowAnonymous]
+        public async Task<object> MyTakenOrdersPage()
+        {
+            var contextUser = (Users)HttpContext.Items["User"];
 
-                if (!string.IsNullOrEmpty(userId))
-                {
-                    var user = await _db.User
-                        .Where(u => u.UID == userId)
-                        .FirstOrDefaultAsync();
+            var courier = await _db.Courier
+                .Where(c => c.User.Id == contextUser.Id)
+                .FirstOrDefaultAsync();
 
-                    if (user != null)
-                    {
-                        var orders = await _db.Order
-                            .Where(o => o.User.Id == user.Id)
-                            .ToListAsync();
+            var orders = await _db.Order
+                .Where(o => (o.status == Orders.Status.Taken) && (o.CourierId == courier.Id))
+                .Include(o => o.User)
+                .ToListAsync();
 
-                        return new CustomerPageViewModel { Order = orders };
-                    }
-                }
-            }
-            return View(new CourierPageViewModel { Order = new List<Orders>() });
+            return View(new CourierPageViewModel { Order = orders});
+        }
+
+
+        [AllowAnonymous]
+        public async Task<object> HistoryOrdersPage()
+        {
+            var contextUser = (Users)HttpContext.Items["User"];
+
+            var courier = await _db.Courier
+                .Where(c => c.User.Id == contextUser.Id)
+                .FirstOrDefaultAsync();
+
+            var orders = await _db.Order
+                .Where(o => (o.status == Orders.Status.Completed) && (o.CourierId == courier.Id))
+                .Include(o => o.User)
+                .ToListAsync();
+
+            return View(new CourierPageViewModel { Order = orders });
         }
     }
 }
