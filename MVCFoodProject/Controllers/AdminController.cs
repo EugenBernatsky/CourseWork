@@ -20,7 +20,7 @@ namespace MVCFoodProject.Controllers
         public async Task<ActionResult<Products>> ToggleProdutc([FromBody] ToggleProductDTO body)
         {
             var product = await _db.Products
-                .Where(p => p.InternalId == body.internalId)
+                .Where(p => p.InternalId == body.internalId && p.Deleted != true)
                 .Include(p => p.ProductsDetails)
                 .FirstOrDefaultAsync();
 
@@ -43,7 +43,7 @@ namespace MVCFoodProject.Controllers
         
         public async Task<ActionResult> EditProduct ([FromRoute] string id, [FromForm] EditProductDTO body)
         {
-            var product = await _db.Products.Where(p => p.InternalId == id)
+            var product = await _db.Products.Where(p => p.InternalId == id && p.Deleted != true)
                 .Include(p => p.ProductsDetails)    
                 .FirstOrDefaultAsync();
 
@@ -100,7 +100,7 @@ namespace MVCFoodProject.Controllers
         public async Task<ActionResult<String>> GetProductById([FromRoute] string id)
         {
             var product = await _db.Products
-                        .Where(p => p.InternalId == id)
+                        .Where(p => p.InternalId == id && p.Deleted != true)
                         .Include(p => p.ProductsDetails)
                         .FirstOrDefaultAsync();
             if (product == null)
@@ -109,6 +109,28 @@ namespace MVCFoodProject.Controllers
             }
 
             return Ok(product);
+        }
+
+        [HttpDelete("/products/{id}")]
+        public async Task<ActionResult> DeleteProduct(string id)
+        {
+            var product = await _db.Products.Where(p => p.InternalId == id).FirstOrDefaultAsync();
+
+            if (product == null)
+            {
+                return NotFound($"Product with id {id} not found");
+            }
+
+            try
+            {
+                product.Deleted = true;
+                _db.SaveChanges();
+            } catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+            return NoContent();
         }
     }
 }

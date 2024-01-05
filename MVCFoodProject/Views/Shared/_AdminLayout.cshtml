@@ -21,14 +21,19 @@
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
             <div class="container-fluid">
  
-                <span class="navbar-brand badge bg-secondary">Адмін</span>
+                <span class="navbar-brand badge bg-secondary">
+                    @Html.ActionLink("Інформація про мене", "Index", null, null, new { @class = "nav-link" })
+                </span>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            @Html.ActionLink("Users", "UsersPage", "AdminPage", null,  new { @class = "nav-link" })
+                            @Html.ActionLink("Замовленя Користувачів", "UsersPage", "AdminPage", null,  new { @class = "nav-link" })
                         </li>
                         <li class="nav-item">
-                            @Html.ActionLink("Products", "ProductsPage", "AdminPage", null, new { @class = "nav-link" })
+                            @Html.ActionLink("Продукти", "ProductsPage", "AdminPage", null, new { @class = "nav-link" })
+                        </li>
+                        <li class="nav-item">
+                            @Html.ActionLink("Кур'єри", "CouriersPage", "AdminPage", null, new { @class = "nav-link" })
                         </li>
                     </ul>
                 </div>
