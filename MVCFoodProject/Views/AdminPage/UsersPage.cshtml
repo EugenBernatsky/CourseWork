@@ -1,0 +1,133 @@
+﻿@model MVCFoodProject.Models.ViewModels.AdminPageViewModel;
+
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">User Name</th>
+            <th scope="col">Phone</th>
+            <th scope="col">Address</th>
+            <th scope="col">Orders</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model.UsersList.Select((value, i) => new { i = i + 1, value }))
+        {
+            <tr>
+                <th scope="col">@user.i </th>
+                <th scope="col">@user.value.Name</th>
+                <th scope="col">@user.value.Number</th>
+                <th scope="col">@user.value.Adress</th>
+                <th scope="col">
+                    <button type="button" class="btn btn-info" data-bs-toggle="collapse" data-bs-target="#collapse-@user.i" aria-expanded="false" aria-controls="collapseExample">
+                        Orders
+                    </button>
+                </th>
+            </tr>
+            <tr class="collapse" id="collapse-@user.i">
+                <td colspan="12" class="hiddenRow">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Id</th>
+                                <th scope="col">CreatedDate</th>
+                                <th>Total Price</th>
+                                <th scope="col">Products</th>
+                                <th scope="col">Courier</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var order in user.value.UserOrders.Select((value, i) => new { i = i + 1, value }))
+                            {
+                                <tr>
+                                    <th scope="row">@order.i</th>
+                                    <th scope="col">@order.value.Id</th>
+                                    <th scope="col">@order.value.CreatedDate</th>
+                                    <th scope="col">@order.value.TotalPrice</th>
+                                    <th scope="col">
+                                        <button type="button" class="btn btn-info" data-bs-toggle="collapse" data-bs-target="#products-@order.i" aria-expanded="false" aria-controls="#products-@order.i">
+                                            Product
+                                        </button>
+                                    </th>
+                                    <th scope="col">
+                                        <button type="button" class="btn btn-info" data-bs-toggle="collapse" data-bs-target="#courier-@order.i" aria-expanded="false" aria-controls="#courier-@order.i">
+                                            Courier
+                                        </button>
+                                    </th>
+                                </tr>
+                                <tr class="collapse" id="courier-@order.i">
+                                    <td colspan="12" class="hiddenRow">
+                                        <table class="table table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">#</th>
+                                                    <th scope="col">Id</th>
+                                                    <th scope="col">Courier Name</th>
+                                                    <th scope="col">Phone</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="row">1</th>
+                                                    <th scope="col">@order.value.Courier.Id</th>
+                                                    <th scope="col">@order.value.Courier.User.Name</th>
+                                                    <th scope="col">@order.value.Courier.User.Number</th>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                    
+                                </tr>
+                                <tr class="collapse" id="products-@order.i">
+                                    <td colspan="12" class="hiddenRow">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">#</th>
+                                                    <th scope="col">Product Id</th>
+                                                    <th scope="col">Image</th>
+                                                    <th scope="col">Product Name</th>
+                                                    <th scope="col">Price</th>
+                                                    <th scope="col">Quantity</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var productOrder in order.value.ProductOrders.Select((value, i) => new { i = i + 1, value }))
+                                                {
+                                                    <tr>
+                                                        <th scope="row">@productOrder.i</th>
+                                                        <th scope="row">@productOrder.value.Id</th>
+                                                        <th scope="row">
+                                                            <div class="" style="width: 100px; padding-left: 0px;  padding-right: 0px;">
+                                                                <img src="@productOrder.value.Product.ProductsDetails.imgURL" class="img-fluid" alt="...">
+                                                            </div>
+                                                        </th>
+                                                        <th scope="row">
+                                                            @productOrder.value.Product.ProductsDetails.ProductName
+                                                        </th>
+                                                        <th scope="col">
+                                                            @productOrder.value.Product.ProductsDetails.Price
+                                                        </th>
+                                                        <th scope="col">
+                                                            @productOrder.value.Quantity
+                                                        </th>
+                                                    </tr>
+                                                }
+                                                
+                                            </tbody>
+                                        </table>
+                                    </td>
+
+                                </tr>
+                            }
+                           
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+        }
+        
+    </tbody>
+</table>

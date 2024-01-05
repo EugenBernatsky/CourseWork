@@ -26,10 +26,8 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
 
-        apiCLientInstance.post('/login', {
-            body: payload
-        })
-            .then(user => {
+        apiCLientInstance.post('/login', payload)
+            .then(({ data: user }) => {
                 USER_INSTANCE.setUserProfile(user);
                 window.location.replace(`${origin}/${DESTINATION_MAP_BY_ROLE[user.role]}`);
             })
@@ -51,10 +49,8 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         
-        apiCLientInstance.post('/register', {
-            body: payload
-        })
-            .then(user => {
+        apiCLientInstance.post('/register', payload)
+            .then(({ data: user }) => {
                 USER_INSTANCE.setUserProfile(user);
                 window.location.replace(`${origin}/${DESTINATION_MAP_BY_ROLE[user.role]}`)
             })
