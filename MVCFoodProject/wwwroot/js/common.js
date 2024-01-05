@@ -90,7 +90,7 @@ class ProductsView {
 
     _generateAdminProductButtonGroup(isActive, id) {
         if (isActive) {
-            return `<button type="button" class="btn btn-danger" onclick="onToggleProduct(event)" data-action="disactivate" data-product-id="${id}">Вимкнути</button>`
+            return `<button type="button" class="btn btn-warning" onclick="onToggleProduct(event)" data-action="disactivate" data-product-id="${id}">Вимкнути</button>`
         } else {
             return `<button type="button" class="btn btn-success" onclick="onToggleProduct(event)"  data-action="activate" data-product-id="${id}">Увімкнути</button>`
         }
