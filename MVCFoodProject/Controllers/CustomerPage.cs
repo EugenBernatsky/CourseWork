@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -12,20 +14,13 @@ namespace MVCFoodProject.Controllers
 {
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "customer")]
 
-
     public class CustomerPage : Controller
     {
         private readonly ApplicationDbContext _db;
-        private readonly UserManager<Users> _userManager;
 
         public CustomerPage(ApplicationDbContext context)
         {
             _db = context;
-        }
-
-        public CustomerPage(UserManager<Users> userManager)
-        {
-            _userManager = userManager;
         }
 
         [AllowAnonymous]
@@ -78,49 +73,5 @@ namespace MVCFoodProject.Controllers
 
             return View(new CustomerPageViewModel { Order = orders});
         }
-
-        
-        //[HttpGet]
-        //public async Task<IActionResult> EditProfile()
-        //{
-        //    var user = await _userManager.GetUserAsync(User);
-        //    var model = new Users
-        //    {
-        //        Name = user.Name,
-        //        imgURL = user.imgURL,
-        //        Number = user.Number,
-        //        Adress = user.Adress
-        //    };
-
-        //    return View(model);
-        //}
-
-        //[HttpPost]
-        //public async Task<IActionResult> EditProfile(Users model)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        var user = await _userManager.GetUserAsync(User);
-        //        user.Name = model.Name;
-        //        user.imgURL = model.imgURL;
-        //        user.Number = model.Number;
-        //        user.Adress = model.Adress;
-
-        //        var result = await _userManager.UpdateAsync(user);
-
-        //        if (result.Succeeded)
-        //        {
-        //            return RedirectToAction("Index", "Home"); 
-        //        }
-
-        //        foreach (var error in result.Errors)
-        //        {
-        //            ModelState.AddModelError("", error.Description);
-        //        }
-        //    }
-
-        //    return View(model);
-        //}
-       
     }
 }

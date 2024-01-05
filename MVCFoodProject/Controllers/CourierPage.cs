@@ -44,7 +44,7 @@ namespace MVCFoodProject.Controllers
                 .Include(o => o.User)
                 .ToListAsync();
 
-            return new CourierPageViewModel { Order = orders };
+            return View(new CourierPageViewModel { Order = orders });
         }
 
         [AllowAnonymous]

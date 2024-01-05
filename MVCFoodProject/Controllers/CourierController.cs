@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using MVCFoodProject.Models.DTO;
 using System.Data;
 
 namespace MVCFoodProject.Controllers
@@ -33,25 +31,10 @@ namespace MVCFoodProject.Controllers
                 return BadRequest();
             }
 
-            if (body.Name != null)
-            {
-                user.Name = body.Name;
-            }
-
-            if (body.Adress != null)
-            {
-                user.Adress = body.Adress;
-            }
-
-            if (body.Number != null)
-            {
-                user.Number = body.Number;
-            }
-
-            if (body.imgURL != null)
-            {
-                user.imgURL = body.imgURL;
-            }
+            user.Name = body.Name ?? user.Name;
+            user.Adress = body.Adress ?? user.Adress;
+            user.Number = body.Number ?? user.Number;
+            user.imgURL = body.imgURL ?? user.imgURL;
 
             try
             {
@@ -67,5 +50,34 @@ namespace MVCFoodProject.Controllers
 
             return Ok(user);
         }
+
+        [HttpPost("/orders/toggle")]
+        public async Task<ActionResult<Orders>> ToggleOrders([FromBody] ToggleOrderDTO body)
+        {
+            var contextUser = (Users)HttpContext.Items["User"];
+
+            var order = await _db.Order
+                .Where(o => o.Id == body.Id)
+                .FirstOrDefaultAsync();
+
+            var courier = await _db.Courier
+                .Where(c => c.User.Id == contextUser.Id)
+                .FirstOrDefaultAsync();
+            try
+            {
+                order.status = body.action == ToggleOrderDTO.ACTION.take ? Orders.Status.Taken : Orders.Status.Canceled;
+                courier.status = body.action == ToggleOrderDTO.ACTION.take ? Courier.Status.busy : Courier.Status.free;
+
+                await _db.SaveChangesAsync();
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+            return Ok();
+        }
+
     }
 }

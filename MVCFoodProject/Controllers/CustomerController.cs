@@ -7,14 +7,13 @@ using System.Data;
 
 namespace MVCFoodProject.Controllers
 {
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "courier")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "customer")]
     [Route("api/[controller]")]
     [ApiController]
 
     public class CustomerController : ControllerBase
     {
         private readonly ApplicationDbContext _db;
-        private readonly UserManager<IdentityUser> _userManager;
         public CustomerController(ApplicationDbContext context)
         {
             _db = context;
@@ -29,30 +28,10 @@ namespace MVCFoodProject.Controllers
                 .Where(u => u.Id == contextUser.Id)
                 .FirstOrDefaultAsync();
 
-            if (user == null)
-            {
-                return BadRequest();
-            }
-
-            if(body.Name != null)
-            {
-                user.Name = body.Name;
-            }
-
-            if(body.Adress != null) 
-            {
-                user.Adress = body.Adress;
-            }
-
-            if(body.Number != null)
-            {
-                user.Number = body.Number;
-            }
-
-            if(body.imgURL != null)
-            {
-                user.imgURL = body.imgURL;
-            }
+            user.Name = body.Name ?? user.Name;
+            user.Adress = body.Adress ?? user.Adress;
+            user.Number = body.Number ?? user.Number;
+            user.imgURL = body.imgURL ?? user.imgURL;
 
             try
             {
