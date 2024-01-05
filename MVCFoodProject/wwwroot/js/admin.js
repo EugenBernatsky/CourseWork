@@ -3,11 +3,6 @@
     isAuth: true
 });
 
-//const EditModal = new bootstrap.Modal('#edit-product-modal', {
-//    keyboard: false
-//});
-
-
 class ProductEditor {
     constructor(options = {}) {
         this._init(options)
@@ -154,6 +149,9 @@ class ProductEditor {
 
 
 function editProductHandler(event) {
+    const EditModal = new bootstrap.Modal('#edit-product-modal', {
+        keyboard: false
+    });
     EditModal.show();
     const modalBody = document.querySelector('.modal-body');
     const productId = event.target.getAttribute('data-product-id');
@@ -260,4 +258,15 @@ function onSort({ target }) {
         btns.forEach(b => b.classList.remove('active'));
         target.classList.add('active');
     });
+}
+
+function onDeleteProduct({ target }) {
+    const productId = target.getAttribute('data-product-id');
+
+    apiCLientInstance.delete(`/products/${productId}`)
+        .then(() => {
+            document.querySelector(`.card[data-product-id="${productId}"]`).parentNode.remove();
+        }).catch(e => {
+            console.error(e)
+        })
 }

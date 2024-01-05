@@ -27,7 +27,8 @@ namespace MVCFoodProject.Data
             base.OnModelCreating(modelBuilder);
         }
 
-        public DbSet<Products> Products { get; set; }   
+        public DbSet<Products> Products { get; set; }
+        public DbSet<ProductsDetails> ProductsDetails { get; set; }
         public DbSet<Orders> Order { get; set; }
         public DbSet<ProductOrders> ProductOrder { get; set; }
         public DbSet<Courier> Courier { get; set; }

@@ -14,5 +14,7 @@
         public DateTime CreatedDate { get; set; } = DateTime.Now;
 
         public ProductsDetails ProductsDetails { get; set; }
+
+        public bool Deleted { get; set; } = false;
     }
 }
