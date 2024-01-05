@@ -1,0 +1,104 @@
+﻿@model MVCFoodProject.Models.ViewModels.OrderViewModel;
+
+@{
+    ViewData["Title"] = "Order Page";
+}
+
+<div>
+    <nav id="navbar-example2" class="navbar navbar-light bg-light px-3">
+        <a class="navbar-brand" href="#">Замовлення ID: @Model.OrderId</a>
+    </nav>
+    <div data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-offset="0" class="scrollspy-example mt-3" tabindex="0">
+        <h4 id="scrollspyHeading1">Деталі Замовленя</h4>
+        <div class="mt-2 mb-4">
+            <table class="table table-info ">
+                <thead>
+                    <tr>
+                        <th scope="col">Дата Створення</th>
+                        <th scope="col">Статус</th>
+                        <th scope="col">Загальна сумма</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>@Model.CreatedDate</th>
+                        <td>@Model.Status</td>
+                        <td>@Model.TotalPrice</td>
+                       
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <h4 id="scrollspyHeading2">Інформація про замовника</h4>
+        <div class="mt-2 mb-4">
+            <table class="table table-info ">
+                <thead>
+                    <tr>
+                        <th scope="col">ID користувача</th>
+                        <th scope="col">Фото</th>
+                        <th scope="col">Імя</th>
+                        <th scope="col">Телефон</th>
+                        <th scope="col">Адреса</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>@Model.User.Id</th>
+                    
+                        <th scope="row">
+                            <div class="" style="width: 100px; padding-left: 0px;  padding-right: 0px;">
+                                <img src="@Model.User.imgURL" class="img-fluid" alt="">
+                            </div>
+                        </th>
+                        <th>
+                            @Model.User.Name
+                        </th>
+                        <th>
+                            @Model.User.Number
+                        </th>
+                        <th>
+                            @Model.User.Adress
+                        </th>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <h4 id="scrollspyHeading3">Замовлення</h4>
+        <div class="mt-2 mb-4">
+            <table class="table table-info ">
+                <thead>
+                    <th scope="col">#</th>
+                    <th scope="col">Назва продукта</th>
+                    <th scope="col">Фото продукта</th>
+                    <th scope="col">Кількість</th>
+                    <th scope="col">Ціна за од.</th>
+                    <th scope="col">Загальна сумма</th>
+                </thead>
+                <tbody>
+                    @foreach (var order in Model.OrderProducts.Select((value, i) => new { i = i + 1, value }))
+                    {
+                        <tr>
+                            <th scope="row">@order.i</th>
+                            <td>@order?.value?.Product?.ProductsDetails.ProductName</td>
+                            <td>
+                                <div class="" style="width: 100px; padding-left: 0px;  padding-right: 0px;">
+                                    <img src="@order?.value?.Product?.ProductsDetails.imgURL" class="img-fluid" alt="...">
+                                </div>
+                            </td>
+                           <td>
+                               @order?.value.Quantity
+                           </td>
+                            <td>
+                                @order?.value?.Product?.ProductsDetails.Price
+                            </td>
+                            <td>
+                                @order?.value?.Total
+                            </td>
+                        </tr>
+                    }
+                    
+                </tbody>
+            </table>
+        </div>
+    </div>
+ </div>

@@ -11,7 +11,7 @@ namespace MVCFoodProject.Controllers
         public async Task<IActionResult> Index()
         {
             var products = await _db.Products
-                 .Where(p => p.IsActive == true)
+                 .Where(p => p.IsActive == true && p.Deleted != true)
                  .Include(p => p.ProductsDetails)
                  .ToListAsync();
 
@@ -24,7 +24,7 @@ namespace MVCFoodProject.Controllers
             var idsToFind = ids.Split(',').ToList();
 
             return await _db.Products
-                 .Where(p => idsToFind.Contains(p.InternalId))
+                 .Where(p => idsToFind.Contains(p.InternalId) && p.Deleted != true)
                  .Include(p => p.ProductsDetails)
                  .ToListAsync();
         }
@@ -36,7 +36,10 @@ namespace MVCFoodProject.Controllers
 
             if (category != null)
             {
-                product = product.Where(p => p.CategoryType == category);
+                product = product.Where(p => p.CategoryType == category && p.Deleted != true);
+            } else
+            {
+                product = product.Where(p => p.Deleted != true);
             }
 
             if (sort == "ASC" && field == "price")

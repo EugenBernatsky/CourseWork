@@ -1,0 +1,79 @@
+﻿@model MVCFoodProject.Models.ViewModels.AdminPageViewModel;
+
+@{
+    ViewData["Title"] = "Couriers Page";
+}
+
+
+<table class="table mt-2">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">ID Курьєра</th>
+            <th scope="col">Імя</th>
+            <th scope="col">Фото</th>
+            <th scope="col">Телефон</th>
+            <th scope="col">Адресса</th>
+            <th scope="col">Замовлення</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var courier in Model.Couriers.Select((value, i) => new {i = i + 1, value }))
+        {
+            <tr>
+                <th scope="row">@courier.i</th>
+                <td>@courier.value.Id</td>
+                <td>@courier?.value?.User?.Name</td>
+                <td>
+                    <div class="" style="width: 100px; padding-left: 0px;  padding-right: 0px;">
+                        <img src="@courier?.value?.User?.imgURL" class="img-fluid" alt="">
+                    </div>
+                </td>
+                <td>@courier?.value?.User?.Number</td>
+                <td>
+                    @courier?.value?.User?.Adress
+                </td>
+                <td>
+                    <button type="button" class="btn btn-info" data-bs-toggle="collapse" data-bs-target="#courier-@courier.i" aria-expanded="false" aria-controls="#courier-@courier.i">
+                        Переглянути Замовлення
+                    </button>
+                </td>
+            </tr>
+            <tr class="collapse" id="courier-@courier.i">
+                <td colspan="12" class="hiddenRow">
+                    <table class="table table-dark">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">ID Замовлення</th>
+                                <th scope="col">Дата Стоверння</th>
+                                <th scope="col">Загальна сумма</th>
+                                <th scope="col">Статус</th>
+                                <th scope="col">Інфо</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var order in courier.value.Order.Select((value, i) => new { i = i + 1, value }))
+                            {
+                                <tr>
+                                    <th scope="row">@order.i</th>
+                                    <th scope="row">@order.value.Id</th>
+                                    <th scope="row">@order.value.CreatedDate</th>
+                                    <th scope="row">@order.value.TotalPrice</th>
+                                    <th scope="row">
+                                        @order.value.status
+                                    </th>
+                                    <th scope="row">
+                                        <button type="button" class="btn btn-info">
+                                            @Html.ActionLink("Детальніше", "OrderPage", "AdminPage", new { orderID = order.value.Id }, new { @class = "nav-link", target = "_blank" })
+                                        </button>
+                                    </th> 
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

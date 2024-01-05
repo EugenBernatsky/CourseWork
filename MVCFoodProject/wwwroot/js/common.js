@@ -63,6 +63,10 @@ class ApiClient {
     get(path) {
         return this._axios.get(path)
     }
+
+    delete(path) {
+        return this._axios.delete(path);
+    }
 }
 
 
@@ -141,7 +145,7 @@ class ProductsView {
 
         if (this._variant === 'adminProductCard') {
             return `
-                        <img src="${image}" class="card-img-top" alt="${productName}">
+                        <img src="${image}" style="height: 300px; max-width: 100%; object-fit: contain;" class="card-img-top" alt="${productName}">
                         <div class="card-body">
                             <h5 class="card-title">${productName}</h5>
                             <p class="card-text">${description}</p>
@@ -155,6 +159,7 @@ class ProductsView {
                         <div class="card-body">
                             ${this._generateAdminProductButtonGroup(isActive, id)}
                             <button type="button" onclick="editProductHandler(event)" class="btn btn-primary" data-product-id="${id}">Редагувати</button>
+                            <button type="button" class="btn btn-danger" onclick="onDeleteProduct(event)" data-product-id="${id}">Видалити</button>
                         </div> 
             `;
         }
@@ -163,7 +168,7 @@ class ProductsView {
             return `
                     <div class="col col-4 d-flex justify-content-center">
                        <div class="card " style="width: 25rem;" data-product-id="${id}">
-                        <img src="${image}" class="card-img-top" alt="${productName}">
+                        <img src="${image}" style="height: 300px; max-width: 100%; object-fit: contain;" class="card-img-top" alt="${productName}">
                         <div class="card-body">
                             <h5 class="card-title">${productName}</h5>
                             <p class="card-text">${description}</p>
@@ -177,6 +182,7 @@ class ProductsView {
                         <div class="card-body">
                             ${this._generateAdminProductButtonGroup(isActive, id)}
                             <button type="button" onclick="editProductHandler(event)" class="btn btn-primary" data-product-id="${id}">Редагувати</button>
+                            <button type="button" class="btn btn-danger" onclick="onDeleteProduct(event)" data-product-id="${id}">Видалити</button>
                         </div> 
                         </div>
                         </div>
