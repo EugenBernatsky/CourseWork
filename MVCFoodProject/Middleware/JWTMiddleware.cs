@@ -21,19 +21,24 @@ namespace MVCFoodProject.Middleware
         public async Task Invoke(HttpContext context, ApplicationDbContext _db, UserManager<IdentityUser> _userManager)
         {
             var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
+            var cookieToken = context.Request.Cookies["identity"];
 
-            if (token != null)
+            if (token != null || cookieToken != null)
             {
-                JwtSecurityToken decodedToken = new JwtSecurityToken(token);
+                JwtSecurityToken decodedToken = new JwtSecurityToken(token ?? cookieToken);
 
                 var name = decodedToken.Claims
                             .Where(c => c.Type == ClaimTypes.NameIdentifier)
                             .Select(c => c.Value)
                             .SingleOrDefault();
 
-                
                 var currentUser = await _userManager.FindByNameAsync(name);
-                context.Items["User"] = _db.User.Where(u => u.UID == currentUser.Id).FirstOrDefault();
+                    if (currentUser != null)
+                    {
+                        context.Items["User"] = _db.User.Where(u => u.UID == currentUser.Id).FirstOrDefault();
+                    }
+                
+                
             }
 
             await _next(context);

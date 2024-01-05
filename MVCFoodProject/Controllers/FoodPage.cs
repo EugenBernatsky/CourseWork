@@ -28,5 +28,43 @@ namespace MVCFoodProject.Controllers
                  .Include(p => p.ProductsDetails)
                  .ToListAsync();
         }
+
+        [HttpGet("/products")]
+        public async Task<ActionResult> ProductsList(string? sort, string? field, string? category)
+        {
+            var product = _db.Products.AsQueryable(); ;
+
+            if (category != null)
+            {
+                product = product.Where(p => p.CategoryType == category);
+            }
+
+            if (sort == "ASC" && field == "price")
+            {
+                product = product.OrderBy(p => p.ProductsDetails.Price);
+            }
+
+            if (sort == "DESC" && field == "price")
+            {
+                product = product.OrderByDescending(p => p.ProductsDetails.Price);
+            }
+
+            if (sort == "ASC" && field == "name")
+            {
+                product = product.OrderBy(p => p.ProductsDetails.ProductName);
+            }
+
+            if (sort == "DESC" && field == "name")
+            {
+                product = product.OrderByDescending(p => p.ProductsDetails.ProductName);
+            }
+
+
+
+
+            var result = await product.Include(p => p.ProductsDetails).ToListAsync();
+
+            return Ok(result);
+        }
     }
 }
