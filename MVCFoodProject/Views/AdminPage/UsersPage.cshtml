@@ -71,9 +71,9 @@
                                             <tbody>
                                                 <tr>
                                                     <th scope="row">1</th>
-                                                    <th scope="col">@order.value.Courier.Id</th>
-                                                    <th scope="col">@order.value.Courier.User.Name</th>
-                                                    <th scope="col">@order.value.Courier.User.Number</th>
+                                                    <th scope="col">@order.value?.Courier?.Id</th>
+                                                    <th scope="col">@(order?.value?.Courier?.User?.Name ?? "")</th>
+                                                    <th scope="col">@(order?.value?.Courier?.User?.Number ?? "")</th>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -101,17 +101,17 @@
                                                         <th scope="row">@productOrder.value.Id</th>
                                                         <th scope="row">
                                                             <div class="" style="width: 100px; padding-left: 0px;  padding-right: 0px;">
-                                                                <img src="@productOrder.value.Product.ProductsDetails.imgURL" class="img-fluid" alt="...">
+                                                                <img src="@productOrder?.value?.Product.ProductsDetails.imgURL" class="img-fluid" alt="...">
                                                             </div>
                                                         </th>
                                                         <th scope="row">
-                                                            @productOrder.value.Product.ProductsDetails.ProductName
+                                                            @productOrder?.value?.Product.ProductsDetails.ProductName
                                                         </th>
                                                         <th scope="col">
-                                                            @productOrder.value.Product.ProductsDetails.Price
+                                                            @productOrder?.value?.Product.ProductsDetails.Price
                                                         </th>
                                                         <th scope="col">
-                                                            @productOrder.value.Quantity
+                                                            @productOrder?.value.Quantity
                                                         </th>
                                                     </tr>
                                                 }
