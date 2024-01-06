@@ -204,3 +204,112 @@ class ProductsView {
     }
 }
 
+class EditProfile {
+    constructor (options) {
+        this._editor = options.editor;
+        this._openEditor = options.openEditor;
+        this._modalSelector = options.modalSelector;
+
+        this._onSuccsess = options.onSuccsess;
+        this._onFail = options.onFail
+
+        this._init();
+
+        this._apiClient = new ApiClient({
+            apiBase: API_BASE,
+            isAuth: true
+        });
+    }
+
+    onSubmit() {
+        const formData = new FormData(this._editor);
+        const payload = new FormData();
+
+        const tmpUserName = formData.get('name');
+        const tmpUserNumber = formData.get('number');
+        const tmpUserAddress = formData.get('adress');
+        const tmpImage = this._tmpImg;
+
+
+        if (this._currentName !== tmpUserName) {
+            payload.append('name', tmpUserName);
+        }
+
+        if (this._currentNumber !== tmpUserNumber) {
+            payload.append('number', tmpUserNumber || '');
+        }
+
+        if (this._currentAddress !== tmpUserAddress) {
+            payload.append('address', tmpUserAddress || '');
+        }
+
+        if (tmpImage && this._currentImg !== tmpImage) {
+            payload.append('image', tmpImage);
+        }
+
+        if (!payload.entries().next().value) {
+            this._modal.hide();
+            return;
+        }
+
+        const buttons = this._editor.querySelectorAll('.handler');
+
+        buttons?.forEach(b => b.setAttribute("disabled", true));
+
+        this._apiClient.post('/user/edit', payload)
+            .then(res => {
+                if (this._onSuccsess) {
+                    this._onSuccsess(res)
+                }
+            })
+            .catch(e => {
+                if (this._onFail) {
+                    this._onFail(e)
+                }
+            }).finally(() => {
+                buttons?.forEach(b => b.removeAttribute("disabled"));
+                this._modal.hide();
+                this._tmpImg = null;
+            });
+    }
+
+    _init() {
+        this._modal = new bootstrap.Modal(this._modalSelector, {
+            keyboard: false
+        });
+
+        this._imageEditor = this._editor.querySelector('#uplod-image');
+
+        this._imageEditor.addEventListener('change', () => {
+            const image = this._editor.querySelector('.image-preview img');
+
+            if (!event.target.files[0] || !image) {
+                return;
+            }
+
+            this._tmpImg = event.target.files[0];
+            image.onload = () => {
+                URL.revokeObjectURL(image.src);
+            }
+
+            image.src = URL.createObjectURL(this._tmpImg);
+        });
+
+
+
+        this._openEditor.addEventListener('click', () => {
+            this._modal.show();
+            const existedData = new FormData(this._editor);
+
+            this._currentName = existedData.get('name');
+            this._currentNumber = existedData.get('number');
+            this._currentAddress = existedData.get('adress');
+            this._currentImg = this._editor.querySelector('.image-preview img').src;
+        });
+
+        this._editor.addEventListener('submit', (e) => {
+            e.preventDefault();
+            this.onSubmit();
+        });
+    }
+}

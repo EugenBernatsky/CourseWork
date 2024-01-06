@@ -318,8 +318,8 @@ function onOpenCartModal() {
     buttons?.setAttribute('disabled', true);
     const productsFromStorage = JSON.parse(localStorage.getItem('cartProducts'));
     const viewInstance = productViewModelInstance.getView('cart');
-
-    if (!productsFromStorage ) {
+ 
+    if (!productsFromStorage || !Object.keys(productsFromStorage).length) {
         viewInstance.render([]);
         return;
     }

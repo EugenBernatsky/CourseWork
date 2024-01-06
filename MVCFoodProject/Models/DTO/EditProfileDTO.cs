@@ -4,7 +4,7 @@
     {
         public string? Name { get; set; }
         public string? Number { get; set; }
-        public string? Adress { get; set; }
-        public string? imgURL { get; set; }
+        public string? Address { get; set; }
+        public IFormFile? image { get; set; }
     }
 }
