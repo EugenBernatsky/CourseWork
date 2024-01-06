@@ -281,7 +281,7 @@ const { increment: incrementCartCount, decrement: decrementCartCount, deleteCart
         if (type === 'decrement' || type === 'delete') {
             if (!productCount) {
                 cleaunUpProductCount();
-                buttons.setAttribute('disabled', true);
+                buttons?.setAttribute('disabled', true);
             } else {
                 decrementProductCount(productCount)
             }
@@ -315,7 +315,7 @@ function onOpenCartModal() {
     CartModal.show();
 
     const buttons = document.querySelector('.checkout-button');
-    buttons.setAttribute('disabled', true);
+    buttons?.setAttribute('disabled', true);
     const productsFromStorage = JSON.parse(localStorage.getItem('cartProducts'));
     const viewInstance = productViewModelInstance.getView('cart');
 
@@ -336,7 +336,7 @@ function onOpenCartModal() {
         
         if (fillteredProducts.length) {
             viewInstance.render(fillteredProducts);
-            buttons.removeAttribute('disabled');
+            buttons?.removeAttribute('disabled');
         }
 
         countCartTotalPrice(!Boolean(fillteredProducts.length));
