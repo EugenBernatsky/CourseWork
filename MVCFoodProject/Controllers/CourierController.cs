@@ -66,6 +66,8 @@ namespace MVCFoodProject.Controllers
             try
             {
                 order.status = body.action == ToggleOrderDTO.ACTION.take ? Orders.Status.Taken : Orders.Status.Canceled;
+                order.CourierId = courier.Id;
+                order.Courier = courier;
                 courier.status = body.action == ToggleOrderDTO.ACTION.take ? Courier.Status.busy : Courier.Status.free;
 
                 await _db.SaveChangesAsync();
@@ -79,5 +81,61 @@ namespace MVCFoodProject.Controllers
             return Ok();
         }
 
+        [HttpPost("/orders/complete/{id}")]
+        public async Task<ActionResult> CompleteOrders([FromRoute] int id)
+        {
+            var contextUser = (Users)HttpContext.Items["User"];
+
+            var order = await _db.Order
+                .Where(o => o.Id == id)
+                .FirstOrDefaultAsync();
+
+            if (order == null)
+            {
+                return NotFound($"Order with id {id} not found");
+            }
+
+            try
+            {
+                order.status = Orders.Status.Completed;
+              
+                await _db.SaveChangesAsync();
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+            return Ok();
+        }
+
+        [HttpPost("/orders/cancel/{id}")]
+        public async Task<ActionResult> CancelOrders([FromRoute] int id)
+        {
+            var contextUser = (Users)HttpContext.Items["User"];
+
+            var order = await _db.Order
+                .Where(o => o.Id == id)
+                .FirstOrDefaultAsync();
+
+            if (order == null)
+            {
+                return NotFound($"Order with id {id} not found");
+            }
+
+            try
+            {
+                order.status = Orders.Status.Canceled;
+
+                await _db.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+            return Ok();
+        }
     }
 }

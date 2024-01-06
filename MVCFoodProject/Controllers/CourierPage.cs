@@ -40,7 +40,10 @@ namespace MVCFoodProject.Controllers
         public async Task<object> TakeOrdersPage()
         {
             var orders = await _db.Order
-                .Where(o => o.status == Orders.Status.Created)
+                .Where(o => o.status == Orders.Status.Created || o.status == Orders.Status.Canceled)
+                .Include(o => o.ProductOrders)
+                .ThenInclude(pro => pro.Product)
+                .ThenInclude(pr => pr.ProductsDetails)
                 .Include(o => o.User)
                 .ToListAsync();
 
@@ -58,12 +61,14 @@ namespace MVCFoodProject.Controllers
 
             var orders = await _db.Order
                 .Where(o => (o.status == Orders.Status.Taken) && (o.CourierId == courier.Id))
+                .Include(o => o.ProductOrders)
+                .ThenInclude(pro => pro.Product)
+                .ThenInclude(pr => pr.ProductsDetails)
                 .Include(o => o.User)
                 .ToListAsync();
 
             return View(new CourierPageViewModel { Order = orders});
         }
-
 
         [AllowAnonymous]
         public async Task<object> HistoryOrdersPage()
@@ -76,6 +81,9 @@ namespace MVCFoodProject.Controllers
 
             var orders = await _db.Order
                 .Where(o => (o.status == Orders.Status.Completed) && (o.CourierId == courier.Id))
+                .Include(o => o.ProductOrders)
+                .ThenInclude(pro => pro.Product)
+                .ThenInclude(pr => pr.ProductsDetails)
                 .Include(o => o.User)
                 .ToListAsync();
 

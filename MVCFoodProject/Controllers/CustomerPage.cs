@@ -63,7 +63,7 @@ namespace MVCFoodProject.Controllers
             var contextUser = (Users)HttpContext.Items["User"];
 
             var orders = await _db.Order
-                .Where(o => (o.User.Id == contextUser.Id) && ((o.status == Orders.Status.Completed) || (o.status == Orders.Status.Canceled)))
+                .Where(o => o.User.Id == contextUser.Id && o.status == Orders.Status.Completed)
                 .Include(o => o.Courier)
                 .ThenInclude(c => c.User)
                 .Include(o => o.ProductOrders)

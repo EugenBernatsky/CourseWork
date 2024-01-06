@@ -4,6 +4,69 @@
 }
 
 
-<div>
-    My Taken Orders
-</div>
+@if (!Model.Order.Any())
+{
+    <div class="d-flex align-content-center flex-wrap justify-content-center h3">Ви не взяли жодного замовлення</div>
+}
+else
+{
+    @foreach (var order in Model.Order.Select((value, i) => new { i = i + 1, value }))
+    {
+        <div class="accordion " id="accordion-@order.i">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingOne">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseorder-@order.i" aria-expanded="true" aria-controls="collapse-@order.i">
+                        <div style="margin-right: 10px"> Order: @order.i </div>
+                        <div> @order.value.TotalPrice ₴</div>
+                    </button>
+                </h2>
+                <div id="collapseorder-@order.i" class="accordion-collapse collapse" aria-labelledby="headingOne">
+                    <div class="accordion-body">
+
+                        <div style="margin-bottom: 16px">
+                            <button style="margin-right:10px">Complete Order</button>
+                            <button>Cancel Order</button>
+                        </div>
+
+
+                        @foreach (var productorder in order.value.ProductOrders.Select((value, i) => new { i = i + 1, value }))
+                        {
+                            <div class="accordion " id="accordionExample">
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="headingOne">
+                                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseproductorder-@productorder.i" aria-expanded="true" aria-controls="collapseproductorder-@productorder.i">
+                                            <div style="margin-right:10px">Product: @productorder.i</div>
+                                            <div>x @productorder.value.Quantity</div>
+                                        </button>
+                                    </h2>
+
+                                    <div id="collapseproductorder-@productorder.i" class="accordion-collapse collapse" aria-labelledby="headingOne">
+                                        <div class="accordion-body">
+                                            <div class="d-flex flex-column bd-highlight mb-3">
+                                                <div class="p-2 bd-highlight">
+                                                    <div class="d-flex align-items-center">
+                                                        <div class="" style="width: 100px; padding-left: 0px;  padding-right: 0px;">
+                                                            <img src="@productorder.value.Product.ProductsDetails.imgURL" class="img-fluid">
+                                                        </div>
+                                                        <div class="flex-grow-1 ms-3 justify-content-between">
+                                                            <div>@productorder.value.Product.ProductsDetails.ProductName</div>
+                                                            <div>@productorder.value.Product.CategoryType </div>
+                                                            <div>@productorder.value.Product.ProductsDetails.Price ₴</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    @productorder.value.Product.ProductsDetails.Description
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}
