@@ -26,11 +26,11 @@ else
                                     <div class="accordion" id="accordion-@order.value.Courier.User.Id" style="margin-bottom:10px">
                                         <div class="accordion-item">
                                             <h2 class="accordion-header" id="headingOne">
-                                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-@order.value.Courier.User.Id" aria-expanded="true" aria-controls="collapse-@order.value.Courier.User.Id">
+                                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-@order.i-@order.value.Courier.User.Id" aria-expanded="true" aria-controls="collapse-@order.i-@order.value.Courier.User.Id">
                                                     Courier
                                                 </button>
                                             </h2>
-                                            <div id="collapse-@order.value.Courier.User.Id" class="accordion-collapse collapse" aria-labelledby="headingOne">
+                                    <div id="collapse-@order.i-@order.value.Courier.User.Id" class="accordion-collapse collapse" aria-labelledby="headingOne">
                                                 <div class="accordion-body">
                                                     <div class="d-flex flex-column bd-highlight mb-3">
                                                         <div class="p-2 bd-highlight">Name: @(order?.value?.Courier?.User?.Name ?? "")</div>
@@ -46,13 +46,13 @@ else
                                     <div class="accordion " id="accordionExample">
                                         <div class="accordion-item">
                                             <h2 class="accordion-header" id="headingOne">
-                                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseproductorder-@productorder.i" aria-expanded="true" aria-controls="collapseproductorder-@productorder.i">
+                                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseproductorder-@order.i-@productorder.i" aria-expanded="true" aria-controls="collapseproductorder-@order.i-@productorder.i">
                                                     <div style="margin-right:10px">Product: @productorder.i</div>
                                                     <div>x @productorder.value.Quantity</div>
                                                 </button>
                                             </h2>
 
-                                            <div id="collapseproductorder-@productorder.i" class="accordion-collapse collapse" aria-labelledby="headingOne">
+                                    <div id="collapseproductorder-@order.i-@productorder.i" class="accordion-collapse collapse" aria-labelledby="headingOne">
                                                 <div class="accordion-body">
                                                     <div class="d-flex flex-column bd-highlight mb-3">
                                                         <div class="p-2 bd-highlight">
