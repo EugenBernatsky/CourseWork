@@ -97,48 +97,55 @@ class ProductsView {
     }
 
     _getTemplate({ id, productName, quantity, image, price, description, isActive }) {
-        if (this._variant === 'cartProduct') {
+        if (this._variant === "cartProducts") {
             return `
-               <div class='cart-product-item' data-id='${id}'>
-                        <div class='cart-product-img'>
-                        <img src='${image}'/>
-                        </div>
-                        <span class='cart-product-name'>${productName}</span>
-                    
-                    <span class='cart-product-delete-btn' data-product-id='${id}' onclick="deleteProductFromCart(event)">Delete</span>
-                        <span class='cart-product-price'> 
-                        ${price * quantity} ₴
-                        </span>
-
-                        <div class='cart-product-quantity'> 
-                        <button data-product-id='${id}' onclick="incrementCartCount(event)"> +</button>  
-                           <span> ${quantity} x</span>
-                        <button data-product-id='${id}' onclick="decrementCartCount(event)" > -</button>
-                    </div>
+                <div class="col col-12" data-id="${id}">
+                  <div class="row">
+                                <div class="col col-2 d-flex align-items-center">
+                                    <div>
+                                        <img src="${image}" class="img-fluid" alt="">
+                                    </div>
+                                </div>
+                                <div class="col col-4 d-flex align-items-center">
+                                    ${productName}
+                                </div>
+                                <div class="col col-3 d-flex align-items-center">
+                                    <span class='cart-product-quantity'>
+                                        ${price * quantity} ₴
+                                    </span>
+                                </div>
+                                <div class="col col-2 d-flex justify-content-center cart-product-quantity">
+                                    <div class="btn-group-vertical " role="group" aria-label="Vertical button group">
+                                        <button type="button" class="btn btn-primary" data-product-id='${id}' onclick="incrementCartCount(event)">+</button>
+                                        <button type="button" class="btn btn-light" disabled><span>${quantity} x</span></button>
+                                        <button type="button" class="btn btn-primary" data-product-id='${id}' onclick="decrementCartCount(event)" >-</button>
+                                    </div>
+                                </div>
+                                <div class="col col-1 d-flex justify-content-center align-items-center">
+                                    <button type="button" class="btn btn-danger" data-product-id='${id}' onclick="deleteProductFromCart(event)">X</button>
+                                </div>
+                            </div>           
                 </div>
             `
         }
 
         if (this._variant === 'mainView') {
             return `
-                <div class="product-card" data-id="${id}">
-                        <div class="product-img">
-                            <img src="${image}" />
+                <div class="col col-4 d-flex justify-content-center">
+                    <div class="card " style="width: 25rem;" data-product-id="${id}">
+                        <img style="height: 300px; max-width: 100%; object-fit: contain;" src="${image}" class="card-img-top" alt="${productName}">
+                        <div class="card-body">
+                            <h5 class="card-title">${productName}</h5>
+                            <p class="card-text">${description}</p>
                         </div>
-                        <div class="product-name">
-                            ${productName}
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Ціна: ${price} </li>
+
+                        </ul>
+                        <div class="card-body">
+                            <button type="button" onclick="addProductToCart(event)" data-product-id="${id}" class="btn btn-primary">Обрати</button>
                         </div>
-                        <div class="product-description">
-                            ${description}
-                        </div>
-                        <div class="product-footer">
-                            <div class="product-price">
-                                ${price} ₴
-                            </div>
-                            <div class="product-order-btn">
-                                <button onclick="addProductToCart(event)" data-product-id="${id}">Обрати</button>
-                            </div>
-                        </div>
+                    </div>
                 </div>
             `
         }
@@ -192,8 +199,8 @@ class ProductsView {
 
     render(products) {
         this._products = products;
-
         this._container.innerHTML = '';
         this._container.innerHTML = this._products.map(p => this._getTemplate.call(this, p)).join(' ');
     }
 }
+

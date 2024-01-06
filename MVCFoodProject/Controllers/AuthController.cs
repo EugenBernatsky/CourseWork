@@ -82,7 +82,8 @@ namespace MVCFoodProject.Controllers
                 _db.User.Add(new Users {
                     Name = user.UserName,
                     UID = user.Id,
-                    Number = user.PhoneNumber
+                    Number = user.PhoneNumber,
+                    Adress  = body.adress
                 });
 
                 await _db.SaveChangesAsync();

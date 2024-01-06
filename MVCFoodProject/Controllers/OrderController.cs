@@ -23,7 +23,7 @@ namespace MVCFoodProject.Controllers
 
             var productsId = DTO.Orders.Select(x => x.ProductId).ToList();
 
-            var products = await _db.Products.Where(p => productsId.Contains(p.Id) && p.Deleted != true).Include(p => p.ProductsDetails).ToListAsync();
+            var products = await _db.Products.Where(p => productsId.Contains(p.InternalId) && p.Deleted != true).Include(p => p.ProductsDetails).ToListAsync();
 
             if (!products.SequenceEqual(products))
             {
@@ -35,7 +35,7 @@ namespace MVCFoodProject.Controllers
                 User = user,
                 TotalPrice = DTO.Orders.Select(o =>
                 {
-                    var currentProduct = products.Where(p => p.Id == o.ProductId).FirstOrDefault();
+                    var currentProduct = products.Where(p => p.InternalId == o.ProductId).FirstOrDefault();
 
                     return o.Quantity * currentProduct?.ProductsDetails?.Price ?? 0;
                 }).Sum()
@@ -43,7 +43,7 @@ namespace MVCFoodProject.Controllers
 
             var orderProducts = DTO.Orders.Select(o =>
             {
-                var currentProduct = products.Where(p => p.Id == o.ProductId).FirstOrDefault();
+                var currentProduct = products.Where(p => p.InternalId == o.ProductId).FirstOrDefault();
 
                 return new ProductOrders
                 {

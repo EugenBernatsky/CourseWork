@@ -1,94 +1,201 @@
-﻿<!DOCTYPE html>
+﻿@model MVCFoodProject.Models.ViewModels.FoodPageViewModel;
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
-     <meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@400;600;800&family=Encode+Sans+Semi+Expanded:wght@400;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@400;600;800&family=Encode+Sans+Semi+Expanded:wght@400;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     <title>@ViewData["Title"]</title>
 
     <script src="~/js/common.js" asp-append-version="true"></script>
 </head>
 
+
 <body>
-    <div class="modal modal-cart modal-fade">
-        <div class="modal-backdrop"></div>
-        <div class="modal-dialog">
-            <div class="modal-header">Кошик <span class="cart-items-count"></span></div>
-            <div class="modal-body">
-                <div class="steeper cart-steeper">
-                    <div class="step checkout-step">
-                        <div class="cart-products-list">
-                            Пусто
-                        </div>
-                         <div class="button-group">
-                            <button class="step-button step-button-next" data-action="next">оплатити</button>
-                         </div>
-                         <div class="cart-total-price"></div>
+    <div class="modal fade modal-cart" id="staticBackdrop" data-bs-backdrop="static" style="height: 600px" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Кошик <span class="cart-items-count"></span></h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row gy-3 cart-products-list">
                     </div>
-                    <div class="step delivery-adress-step">
-                        <div class="tabs-container">
-                            <ul class="tabs-navigation">
-                                <li>
-                                    <button data-toggle="test1">Test 1</button>
-                                </li>
-                                <li>
-                                    <button data-toggle="test2">Test 2</button>
-                                </li>
-                            </ul>
-                
-                            <div class="tabs">
-                                <div class="tab visible" id="test1">
-                                    Test 1
+                </div>
+                <div class="modal-footer d-flex justify-content-between">
+                        <div>
+                            <div class="cart-total-price"></div>
+                        </div>
+                        <div>
+                        @if (Model.UserProfile != null)
+                        {
+                            <button type="button" class="btn btn-primary checkout-button" onclick="confirmOrder()">Підтвердити замовлення</button>
+                        } else
+                        {
+                            <button type="button" class="btn btn-primary" onclick="onOpenAuthModal()">Увійти</button>
+                        }
+
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal auth-modal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header" style="border-bottom: 0;">
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-bs-toggle="tab" href="#login">Увійти</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="tab" href="#register">Регістрація</a>
+                        </li>
+                    </ul>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="tab-content">
+                  <div class="tab-pane container active" id="login">
+                        <form id="login-form">
+                            <div class="modal-body">
+                                <div class="input-group mb-3">
+                                  <span class="input-group-text" id="login">Ім'я</span>
+                                    <input type="text" class="form-control" placeholder="Користувач" aria-label="Ім'я" aria-describedby="login" required name="name">
                                 </div>
-                                
-                                <div class="tab" id="test2">
-                                    Test 2
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="login">Пароль</span>
+                                    <input type="password" class="form-control" placeholder="Пароль" aria-label="Пароль" aria-describedby="login" required minlength="8" name="password">
                                 </div>
                             </div>
-                        </div>
-                         <div class="button-group">
-                            <button class="step-button step-button-next" data-action="prev">назад</button>
-                         </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрити</button>
+                                <button type="submit" class="btn btn-primary">Увійти</button>
+                            </div>
+                        </form> 
+                  </div>
+                  <div class="tab-pane container" id="register">
+                        <form id="register-form">
+                            <div class="modal-body">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="login">Ім'я</span>
+                                    <input type="text" class="form-control" placeholder="Користувач" aria-label="Ім'я" aria-describedby="login" required name="name">
+                                </div>
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="login">Пароль</span>
+                                    <input type="password" class="form-control" placeholder="Пароль" aria-label="Пароль" aria-describedby="login" required minlength="8" name="password">
+                                </div>
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="email">Єл. Пошта</span>
+                                    <input type="email" class="form-control" placeholder="Пошта" aria-label="Пошта" aria-describedby="email" required name="email">
+                                </div>
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="phone">Телефон</span>
+                                    <input type="tel" class="form-control" placeholder="Телефон" aria-label="Телефон" aria-describedby="phone" required name="pnohe">
+                                </div>
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="address">Адреса</span>
+                                    <input type="text" class="form-control" placeholder="Адреса" aria-label="Адреса" aria-describedby="address" required name="address">
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрити</button>
+                                <button type="submit" class="btn btn-primary">Зареєструватися</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    
-    <div class="header" id="myHeader">
-        <div class = "header-line">
-                <div>
-                    <a class=" header-logo" id="FoodDelivery" href="#FoodDelivery">FoodDelivery</a>
+
+    <div class="modal order-accepted" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        Замолення № <span class="order-accepted-id"></span>
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-
-                <div class="nav">
-                    <a class="nav-item" href="#pizza-id"> <img class="pizza-icon" src="~/assets/pizza.png" alt=""> Піца </a>
-                    <a class="nav-item" href="#sushi-id"> <img class="sushi-icon" src="~/assets/sushi.png" alt=""> Суші </a>
-                    <a class="nav-item" href="#sushisets-id"> <img class="sushisets-icon" src="~/assets/sushisets.png" alt=""> Сети </a>
-                    <a class="nav-item" href="#salat-id"> <img class="salat-icon" src="~/assets/salat.png" alt=""> Салати </a>
-                    <a class="nav-item" href="#drinks-id"> <img class="drinks-icon" src="~/assets/drinks.png" alt=""> Напої </a>
-                </div>
-
-                <div class="number-and-cart">
-                    <a class="number" href="tel:380937395891">
-                        <div class="phone-icon-and-text"> <img class="phone-icon" src="~/assets/phone.png" alt=""> Кнопка УВІЙТИ </div>
-                    </a>
-
-                    <div class="cart cart-button">
-                        <div class="cart-icon-and-text" href="#">Кошик 
-                            <img class="cart-icon" src="~/assets/cart.png" alt="">
-                            <span class="cart-items-count"></span>
-                        </div>
+                <div class="modal-body">
+                    <div class="alert alert-success" role="alert">
+                        Замолення успішно створенно. Загальна сумма: <span class="order-accepted-total"></span>
                     </div>
                 </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрити</button>
+                </div>
+            </div>
         </div>
     </div>
 
-    <div class="main">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top container">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#FoodDelivery">
+                    <img src="https://images.assetsdelivery.com/compings_v2/miracel123/miracel1231801/miracel123180100095.jpg" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
+                    FoodDilivery
+                </a>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#pizza-section">
+                            <img class="pizza-icon" src="~/assets/pizza.png" alt=""> Піца
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#pizza-section">
+                                <img class="sushi-icon" src="~/assets/sushi.png" alt=""> Суші
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#sets-section">
+                                <img class="sushisets-icon" src="~/assets/sushisets.png" alt=""> Сети
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#salats-section">
+                            <img class="salat-icon" src="~/assets/salat.png" alt=""> Салати
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#drinks-section">
+                            <img class="drinks-icon" src="~/assets/drinks.png" alt=""> Напої
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="d-flex justify-content-around" role="search">
+                     <div class="auth-wrapper">
+                        @if (Model.UserProfile != null)
+                        {
+                            <button type="button" class="btn btn-light" onclick="onRedirect('@Model.UserProfile.role')">Мій профіль</button>
+                        }
+                        else
+                        {
+                            <button type="button" class="btn btn-light" onclick="onOpenAuthModal()">Увійти в кабінет</button>
+                        }
+                     </div>
+                    
+                    <button type="button" class="btn btn-light" onclick="onOpenCartModal()">
+                            <img class="cart-icon" src="~/assets/cart.png" alt="">
+                            Кошик
+                         <span class="cart-items-count"></span>
+                        </button>
+                    </div>
+                </div>
+        </div>
+       
+    </nav>
+
+    <div class="container">
         @RenderBody()
     </div>
     

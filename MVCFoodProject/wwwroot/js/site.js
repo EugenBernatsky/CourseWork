@@ -1,180 +1,4 @@
 ﻿
-class Modal {
-    constructor(options = {}) {
-        this._validateArgs(options);
-        this._options = options;
-    }
-
-    init() {
-        this._modal = this._options.modal;
-        this._openButton = this._options.openButton;
-        this._onCloseByEsc = this._options.onCloseByEsc;
-        this._onCloseByOutClick = this._options.onCloseByOutClick;
-        this._onCloseCallback = this._options._onCloseCallback;
-        this._onOpenCallback = this._options.onOpenCallback;
-        this._onCloseBtns = document.querySelectorAll('.modal-close-btn');
-
-        this._initEvents()
-    }
-
-    _initEvents() {
-        const self = this;
-        if (this._openButton) {
-            this._openButton.addEventListener('click', self._onOpenEvent.bind(self))
-        }
-
-        self._onCloseBtns.forEach(node => {
-            node.addEventListener('click', self._onCloseEvent.bind(self));
-        });
-    }
-
-    _onCloseEvent() {
-        const self = this;
-
-        self._modal.classList.add('modal-fade');
-        document.body.style.overflow = 'auto';
-
-        if (self._onCloseCallback && typeof self._onCloseCallback === 'function') {
-            self._onCloseCallback();
-        }
-
-        if (this._onCloseByEsc) {
-            document.removeEventListener('keyup', this._onCloseByEscp.bind(this))
-        }
-    }
-
-    _onOpenEvent() {
-        this._modal.classList.remove('modal-fade');
-        document.body.style.overflow = 'hidden';
-
-        // Calc center position for modal
-        const modalDialog = this._modal.querySelector('.modal-dialog');
-        const rect = modalDialog.getBoundingClientRect();
-        const middelPossion = window.innerHeight / 4;
-        modalDialog.style.top = `${(window.scrollY - rect.height) + middelPossion}px`
-
-        if (this._onCloseByEsc) {
-            document.addEventListener('keyup', this._onCloseByEscp.bind(this));
-        }
-
-        if (this._onCloseByOutClick) {
-            document.addEventListener('click', this._onOutClick.bind(this))
-        }
-
-        if (this._onOpenCallback && typeof this._onOpenCallback === 'function') {
-            this._onOpenCallback();
-        }
-    }
-
-    _onOutClick(event) {
-        if (event.target.classList.contains('modal-backdrop')) {
-            this._onCloseEvent();
-        }
-    }
-
-    _onCloseByEscp(event) {
-        if (event.code === 'Escape') {
-            this._onCloseEvent();
-        }
-    }
-
-    _validateArgs(options) {
-        // Validate reuqired arguments
-        if (!('openButton' in options)) {
-            console.warn('Missed selector for open event')
-        }
-
-        if (!('modal' in options)) {
-            throw new Error('Missed modal element')
-        }
-    }
-}
-
-class Steeper {
-    constructor(options) {
-        this._options = options;
-        this._selectedStep = 0;
-    }
-
-    init() {
-        this._container = this._options.container;
-
-        this._initSteps();
-    }
-
-    _initSteps() {
-        this._steps = this._container.querySelectorAll('.step');
-
-        if (!this._steps.length) {
-            console.warn('No steps added');
-            return;
-        }
-
-        this._steps.forEach((s, i) => {
-            const currentStep = i;
-            s.setAttribute('data-step', currentStep);
-
-            const stepButton = s.querySelectorAll('.step-button');
-
-            if (!stepButton.length) {
-                console.warn('No steps added');
-                return;
-            }
-
-            stepButton.forEach(btn => {
-                const action = btn.getAttribute('data-action');
-
-                if (action === 'next') {
-                    console.log(this._steps[currentStep + 1])
-                    const nextStep = this._steps[currentStep + 1] ? currentStep + 1 : -1;
-
-                    btn.setAttribute('data-step-next', nextStep);
-                    btn.disabled = nextStep !== -1 ? false : true
-
-                    btn.addEventListener('click', this._onNextStep.bind(this));
-                }
-
-                if (action === 'prev') {
-                    const prevStep = this._steps[currentStep - 1] ? currentStep - 1 : -1;
-
-                    btn.setAttribute('data-step-prev', prevStep);
-                    btn.disabled = prevStep !== -1 ? false : true;
-
-                    btn.addEventListener('click', this._onPrevStep.bind(this));
-                }
-            });
-        });
-
-        this._steps[this._selectedStep].classList.add('step-active');
-
-    }
-
-    _onNextStep(event) {
-        const nextStep = event.target.getAttribute('data-step-next');
-
-        this._steps.forEach(s => {
-            if (s.getAttribute('data-step') === nextStep) {
-                s.classList.add('step-active');
-            } else {
-                s.classList.remove('step-active');
-            }
-        })
-    }
-
-    _onPrevStep(event) {
-        const prevStep = event.target.getAttribute('data-step-prev');
-
-        this._steps.forEach(s => {
-            if (s.getAttribute('data-step') === prevStep) {
-                s.classList.add('step-active');
-            } else {
-                s.classList.remove('step-active');
-            }
-        })
-    }
-}
-
-
 class ProductViewModel {
     constructor(apiClient = new ApiClient({ apiBase: API_BASE })) {
         this._pizzaProducts = [];
@@ -213,7 +37,7 @@ class ProductViewModel {
 
         this._cartViewInstance = new ProductsView({
             container: document.querySelector('.cart-products-list'),
-            variant: 'cartProduct'
+            variant: 'cartProducts'
         });
     }
 
@@ -223,9 +47,9 @@ class ProductViewModel {
     }
 
     async fetchProductsById(ids) {
-        const products = await this._apiClient.get(`/getListProductsById?ids=${ids.join(',')}`);
+        const { data } = await this._apiClient.get(`/getListProductsById?ids=${ids.join(',')}`);
 
-        this._cartProducts = products.map(this._productMapper)
+        this._cartProducts = data.map(this._productMapper)
     }
 
     _productMapper(product) {
@@ -281,33 +105,93 @@ class ProductViewModel {
     }
 }
 
-
 const productViewModelInstance = new ProductViewModel();
 
-document.addEventListener('DOMContentLoaded', function () {
+const CartModal = new bootstrap.Modal('.modal-cart', {
+    keyboard: false
+});
 
-    productViewModelInstance.initViewModels();
+const AuthModal = new bootstrap.Modal('.auth-modal', {
+    keyboard: false
+});
 
-    const cartSteeper = new Steeper({
-        container: document.querySelector('.cart-steeper')
-    })
-
-    const cartModal = new Modal({
-        modal: document.querySelector('.modal-cart'),
-        openButton: document.querySelector('.cart-button'),
-        onCloseByEsc: true,
-        onCloseByOutClick: true,
-        onOpenCallback: onOpenCartModal
-    });
-
-    cartModal.init();
-    cartSteeper.init();
-
-    initCartCount();
-    tabComponentInit();
+const OrderAccepted = new bootstrap.Modal('.order-accepted', {
+    keyboard: false,
 });
 
 
+const loginForm = document.querySelector('#login-form');
+const registerForm = document.querySelector('#register-form');
+const authWrapper = document.querySelector('.auth-wrapper');
+
+const origin = window.location.origin;
+const DESTINATION_MAP_BY_ROLE = {
+    admin: 'adminpage',
+    customer: 'customerpage',
+    courier: 'courierpage',
+    unknown: 'foodpage'
+}
+
+loginForm.addEventListener('submit', (e) => {
+    const api = new ApiClient({ apiBase: API_BASE });
+    e.preventDefault();
+
+    const data = new FormData(loginForm);
+
+    const payload = {
+        username: data.get('name'),
+        password: data.get('password'),
+
+    }
+
+    api.post('/login', payload)
+        .then(({ data: user }) => {
+            USER_INSTANCE.setUserProfile(user);
+            authWrapper.innerHTML = `<button type="button" class="btn btn-light" onclick="onRedirect('${user.role}')">Мій профіль</button>`;
+            AuthModal.hide();
+        })
+        .catch(e => {
+            console.error(e)
+        });
+});
+
+registerForm.addEventListener('submit', (e) => {
+    const api = new ApiClient({ apiBase: API_BASE });
+    e.preventDefault();
+
+    const data = new FormData(registerForm);
+
+    const payload = {
+        username: data.get('name'),
+        password: data.get('password'),
+        email: data.get('email'),
+        phone: data.get('phone'),
+        address: data.get('address')
+    }
+
+
+    api.post('/register', payload)
+        .then(({ data: user }) => {
+            USER_INSTANCE.setUserProfile(user);
+            authWrapper.innerHTML = `<button type="button" class="btn btn-light" onclick="onRedirect('${user.role}')">Мій профіль</button>`;
+            AuthModal.hide();
+        })
+        .catch(e => {
+            console.error(e)
+        });
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+    productViewModelInstance.initViewModels();
+
+    initCartCount();
+    
+});
+
+
+function onRedirect(role) {
+    window.location.replace(`${origin}/${DESTINATION_MAP_BY_ROLE[role]}`)
+}
 
 
 function initCartCount() {
@@ -321,28 +205,6 @@ function initCartCount() {
         incrementProductCount(productCount);
     }
 }
-
-function tabComponentInit() {
-    const tabNavigationBtns = document.querySelectorAll('.tabs-navigation button');
-    const tabs = document.querySelectorAll('.tabs .tab');
-
-    const navigationHandler = (e) => {
-        const currentButtonFor = e.target.getAttribute('data-toggle');
-
-        tabs.forEach(t => {
-            if (t.id === currentButtonFor) {
-                t.classList.add('visible')
-            } else {
-                t.classList.remove('visible')
-            }
-        });
-
-    };
-
-    tabNavigationBtns.forEach(tb => tb.addEventListener('click', navigationHandler));
-
-}
-
 
 
 const { increment: incrementProductCount, decrement: decrementProductCount, cleaunUp: cleaunUpProductCount } = function () {
@@ -368,7 +230,7 @@ const { increment: incrementProductCount, decrement: decrementProductCount, clea
 }();
 
 const { increment: incrementCartCount, decrement: decrementCartCount, deleteCartProduct: deleteProductFromCart } = function () {
-    const buttons = document.querySelector('.checkout-step .button-group');
+    const buttons = document.querySelector('.checkout-button');
 
     const handler = (type, event) => {
         const productId = event.target.getAttribute('data-product-id');
@@ -419,7 +281,7 @@ const { increment: incrementCartCount, decrement: decrementCartCount, deleteCart
         if (type === 'decrement' || type === 'delete') {
             if (!productCount) {
                 cleaunUpProductCount();
-                buttons.style.display = 'none';
+                buttons.setAttribute('disabled', true);
             } else {
                 decrementProductCount(productCount)
             }
@@ -437,7 +299,6 @@ const { increment: incrementCartCount, decrement: decrementCartCount, deleteCart
 
 function addProductToCart(event) {
     const productId = event.target.getAttribute('data-product-id');
-
     const cartProducts = JSON.parse(localStorage.getItem('cartProducts')) || {};
 
     cartProducts[productId] = cartProducts[productId] ? { ...cartProducts[productId], quantity: cartProducts[productId].quantity + 1 } : { quantity: 1 };
@@ -451,11 +312,15 @@ function addProductToCart(event) {
 }
 
 function onOpenCartModal() {
-    const buttons = document.querySelector('.checkout-step .button-group');
-    buttons.style.display = 'none';
-    const productsFromStorage = JSON.parse(localStorage.getItem('cartProducts'));
+    CartModal.show();
 
-    if (productsFromStorage && !Object.keys(productsFromStorage).length) {
+    const buttons = document.querySelector('.checkout-button');
+    buttons.setAttribute('disabled', true);
+    const productsFromStorage = JSON.parse(localStorage.getItem('cartProducts'));
+    const viewInstance = productViewModelInstance.getView('cart');
+
+    if (!productsFromStorage ) {
+        viewInstance.render([]);
         return;
     }
 
@@ -468,11 +333,10 @@ function onOpenCartModal() {
 
         }, [])
 
-        const viewInstance = productViewModelInstance.getView('cart');
-
+        
         if (fillteredProducts.length) {
             viewInstance.render(fillteredProducts);
-            buttons.style.display = 'block';
+            buttons.removeAttribute('disabled');
         }
 
         countCartTotalPrice(!Boolean(fillteredProducts.length));
@@ -490,7 +354,7 @@ function countCartTotalPrice(isCleanUp = false) {
     const productsFromStorage = JSON.parse(localStorage.getItem('cartProducts'));
 
     if (productsFromStorage && !Object.keys(productsFromStorage).length) {
-        el.innerHTML = ` Total price ${0}`;
+        el.innerHTML = `Загальна сумма ${0} ₴`;
         return;
     }
 
@@ -502,8 +366,87 @@ function countCartTotalPrice(isCleanUp = false) {
         return acc;
     }, 0);
 
-    console.log(cartTotalSum)
 
-    el.innerHTML = ` Total price ${cartTotalSum}`;
+    el.innerHTML = `Загальна сумма ${cartTotalSum} ₴`;
+}
 
+function onOpenAuthModal() {
+    if (CartModal._isShown) {
+        CartModal.hide();
+    }
+    AuthModal.show();
+}
+
+function onSort({ target }) {
+    const isActive = target.classList.contains('active');
+    const apiClient = new ApiClient({ apiBase: API_BASE })
+
+
+    if (isActive) {
+        return;
+    }
+
+    const category = target.getAttribute("data-category")
+    const field = target.getAttribute("data-field")
+    const sort = target.getAttribute("data-sort")
+
+    apiClient.get(`/products?category=${category}&field=${field}&sort=${sort}`).then((response) => {
+        const container = document.querySelector(`.products-list-container[data-category="${category}"]`);
+
+        const instance = new ProductsView({
+            container: container,
+            variant: 'mainView'
+        });
+
+
+
+        instance.render(response.data.map(p => ({
+            id: p.internalId,
+            productName: p.productsDetails.productName,
+            description: p.productsDetails.description,
+            price: p.productsDetails.price,
+            image: p.productsDetails.imgURL,
+            isActive: p.isActive
+        })));
+    }).catch(e => {
+        console.error(e);
+    }).finally(() => {
+        const btns = document.querySelectorAll(`.sort-buttons[data-category="${category}"] li button`);
+
+        btns.forEach(b => b.classList.remove('active'));
+        target.classList.add('active');
+    });
+}
+
+function confirmOrder() {
+    const apiClient = new ApiClient({ apiBase: API_BASE, isAuth: true })
+    const productsFromStorage = JSON.parse(localStorage.getItem('cartProducts'));
+
+    const payload = Object.keys(productsFromStorage).map(id => {
+        return {
+            productId: id,
+            quantity: productsFromStorage[id].quantity
+        }
+    });
+
+    apiClient.post('/orders', {
+        orders: payload
+    })
+        .then(({ data }) => {
+            const totalPrice = document.querySelector('.order-accepted-total');
+            const orderId = document.querySelector('.order-accepted-id');
+
+            orderId.innerHTML = `${data.data.id}`
+            totalPrice.innerHTML = `${data.data.totalPrice} ₴`
+            localStorage.removeItem('cartProducts');
+            countCartTotalPrice(true);
+            cleaunUpProductCount();
+
+            CartModal.hide();
+            OrderAccepted.show();
+        })
+        .catch(e => {
+            console.log(e)
+
+        });
 }
