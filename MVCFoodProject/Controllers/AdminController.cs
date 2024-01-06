@@ -112,7 +112,7 @@ namespace MVCFoodProject.Controllers
         }
 
         [HttpDelete("/products/{id}")]
-        public async Task<ActionResult> DeleteProduct(string id)
+        public async Task<ActionResult> DeleteProduct([FromRoute] string id)
         {
             var product = await _db.Products.Where(p => p.InternalId == id).FirstOrDefaultAsync();
 

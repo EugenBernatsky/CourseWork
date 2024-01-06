@@ -5,7 +5,6 @@
 
 
 <div>
-    @*MODAL FOR EDIT PROFILE*@
     <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -28,9 +27,6 @@
             </div>
         </div>
     </div>
-    @*MODAL FOR EDIT PROFILE*@
-
-
     <section style="background-color: #eee;">
         <div class="container py-5">
 
@@ -85,6 +81,15 @@
                                 </div>
                                 <div class="col-sm-9">
                                     <p class="text-muted mb-0">@Model.User.Adress</p>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <p class="mb-0">Email</p>
+                                </div>
+                                <div class="col-sm-9">
+                                    <p class="text-muted mb-0">@Model.User.Email</p>
                                 </div>
                             </div>
                         </div>

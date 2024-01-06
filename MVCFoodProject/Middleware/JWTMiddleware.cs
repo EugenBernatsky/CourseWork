@@ -23,23 +23,32 @@ namespace MVCFoodProject.Middleware
             var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
             var cookieToken = context.Request.Cookies["identity"];
 
-            if (token != null || cookieToken != null)
+            try
             {
-                JwtSecurityToken decodedToken = new JwtSecurityToken(token ?? cookieToken);
+                if (token != null || cookieToken != null)
+                {
+                    JwtSecurityToken decodedToken = new JwtSecurityToken(token ?? cookieToken);
 
-                var name = decodedToken.Claims
-                            .Where(c => c.Type == ClaimTypes.NameIdentifier)
-                            .Select(c => c.Value)
-                            .SingleOrDefault();
+                    var email = decodedToken.Claims
+                                .Where(c => c.Type == ClaimTypes.Email)
+                                .Select(c => c.Value)
+                                .SingleOrDefault();
 
-                var currentUser = await _userManager.FindByNameAsync(name);
+                    var currentUser = await _userManager.FindByEmailAsync(email);
+
                     if (currentUser != null)
                     {
                         context.Items["User"] = _db.User.Where(u => u.UID == currentUser.Id).FirstOrDefault();
                     }
-                
-                
+
+
+                }
+            } catch ( Exception ex )
+            {
+                Console.WriteLine(ex.ToString());
             }
+
+            
 
             await _next(context);
         }

@@ -139,7 +139,7 @@ loginForm.addEventListener('submit', (e) => {
     const data = new FormData(loginForm);
 
     const payload = {
-        username: data.get('name'),
+        useremail: data.get('email'),
         password: data.get('password'),
 
     }
