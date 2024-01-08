@@ -1,0 +1,113 @@
+is_global = true
+build_property.TargetFramework = net6.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = MVCFoodProject
+build_property.RootNamespace = MVCFoodProject
+build_property.ProjectDir = C:\Users\Eugen\Source\Repos\EugenBernatsky\CourseWork\MVCFoodProject\
+build_property.RazorLangVersion = 6.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = C:\Users\Eugen\Source\Repos\EugenBernatsky\CourseWork\MVCFoodProject
+build_property._RazorSourceGeneratorDebug = 
+
+[C:/Users/Eugen/source/repos/EugenBernatsky/CourseWork/MVCFoodProject/Views/AdminPage/CouriersPage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5QYWdlXENvdXJpZXJzUGFnZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Eugen/source/repos/EugenBernatsky/CourseWork/MVCFoodProject/Views/AdminPage/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5QYWdlXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Eugen/source/repos/EugenBernatsky/CourseWork/MVCFoodProject/Views/AdminPage/OrderPage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5QYWdlXE9yZGVyUGFnZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Eugen/source/repos/EugenBernatsky/CourseWork/MVCFoodProject/Views/AdminPage/ProductsPage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5QYWdlXFByb2R1Y3RzUGFnZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Eugen/source/repos/EugenBernatsky/CourseWork/MVCFoodProject/Views/AdminPage/UsersPage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5QYWdlXFVzZXJzUGFnZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Eugen/source/repos/EugenBernatsky/CourseWork/MVCFoodProject/Views/AdminPage/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5QYWdlXF9WaWV3U3RhcnQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Eugen/source/repos/EugenBernatsky/CourseWork/MVCFoodProject/Views/CourierPage/HistoryOrdersPage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ291cmllclBhZ2VcSGlzdG9yeU9yZGVyc1BhZ2UuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Eugen/source/repos/EugenBernatsky/CourseWork/MVCFoodProject/Views/CourierPage/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ291cmllclBhZ2VcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Eugen/source/repos/EugenBernatsky/CourseWork/MVCFoodProject/Views/CourierPage/MyTakenOrdersPage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ291cmllclBhZ2VcTXlUYWtlbk9yZGVyc1BhZ2UuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Eugen/source/repos/EugenBernatsky/CourseWork/MVCFoodProject/Views/CourierPage/TakeOrdersPage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ291cmllclBhZ2VcVGFrZU9yZGVyc1BhZ2UuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Eugen/source/repos/EugenBernatsky/CourseWork/MVCFoodProject/Views/CourierPage/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ291cmllclBhZ2VcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Eugen/source/repos/EugenBernatsky/CourseWork/MVCFoodProject/Views/CustomerPage/AllOrdersPage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VzdG9tZXJQYWdlXEFsbE9yZGVyc1BhZ2UuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Eugen/source/repos/EugenBernatsky/CourseWork/MVCFoodProject/Views/CustomerPage/CurrentOrdersPage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VzdG9tZXJQYWdlXEN1cnJlbnRPcmRlcnNQYWdlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Eugen/source/repos/EugenBernatsky/CourseWork/MVCFoodProject/Views/CustomerPage/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VzdG9tZXJQYWdlXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Eugen/source/repos/EugenBernatsky/CourseWork/MVCFoodProject/Views/CustomerPage/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VzdG9tZXJQYWdlXF9WaWV3U3RhcnQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Eugen/source/repos/EugenBernatsky/CourseWork/MVCFoodProject/Views/FoodPage/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRm9vZFBhZ2VcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Eugen/source/repos/EugenBernatsky/CourseWork/MVCFoodProject/Views/FoodPage/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRm9vZFBhZ2VcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Eugen/source/repos/EugenBernatsky/CourseWork/MVCFoodProject/Views/Shared/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Eugen/source/repos/EugenBernatsky/CourseWork/MVCFoodProject/Views/Shared/_AdminLayout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9BZG1pbkxheW91dC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Eugen/source/repos/EugenBernatsky/CourseWork/MVCFoodProject/Views/Shared/_CourierLayout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Db3VyaWVyTGF5b3V0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Eugen/source/repos/EugenBernatsky/CourseWork/MVCFoodProject/Views/Shared/_CustomerLayout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9DdXN0b21lckxheW91dC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Eugen/source/repos/EugenBernatsky/CourseWork/MVCFoodProject/Views/Shared/_FoodPageLayout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Gb29kUGFnZUxheW91dC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Eugen/source/repos/EugenBernatsky/CourseWork/MVCFoodProject/Views/Shared/_LoginLayout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Mb2dpbkxheW91dC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Eugen/source/repos/EugenBernatsky/CourseWork/MVCFoodProject/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
