@@ -69,7 +69,6 @@ class ApiClient {
     }
 }
 
-
 class ProductsView {
     constructor(options = {}) {
         this._init(options);
@@ -82,17 +81,17 @@ class ProductsView {
 
     _generateAdminBadges(isActive) {
         if (isActive) {
-            return '<span class="badge rounded-pill bg-success">Активний</span>'
+            return '<span class="badge rounded-pill bg-success">Active</span>'
         } else {
-            return '<span class="badge rounded-pill bg-danger">Вимкнений</span>'
+            return '<span class="badge rounded-pill bg-danger">Inactive</span>'
         }
     }
 
     _generateAdminProductButtonGroup(isActive, id) {
         if (isActive) {
-            return `<button type="button" class="btn btn-warning" onclick="onToggleProduct(event)" data-action="disactivate" data-product-id="${id}">Вимкнути</button>`
+            return `<button type="button" class="btn btn-warning" onclick="onToggleProduct(event)" data-action="disactivate" data-product-id="${id}">Turn off</button>`
         } else {
-            return `<button type="button" class="btn btn-success" onclick="onToggleProduct(event)"  data-action="activate" data-product-id="${id}">Увімкнути</button>`
+            return `<button type="button" class="btn btn-success" onclick="onToggleProduct(event)"  data-action="activate" data-product-id="${id}">Turn on</button>`
         }
     }
 
@@ -139,11 +138,11 @@ class ProductsView {
                             <p class="card-text">${description}</p>
                         </div>
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item">Ціна: ${price} </li>
+                            <li class="list-group-item">Price: ${price} </li>
 
                         </ul>
                         <div class="card-body">
-                            <button type="button" onclick="addProductToCart(event)" data-product-id="${id}" class="btn btn-primary">Обрати</button>
+                            <button type="button" onclick="addProductToCart(event)" data-product-id="${id}" class="btn btn-primary">Choose</button>
                         </div>
                     </div>
                 </div>
@@ -158,15 +157,15 @@ class ProductsView {
                             <p class="card-text">${description}</p>
                         </div>
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item">Ціна: ${price} </li>
+                            <li class="list-group-item">Price: ${price} </li>
                             <li class="list-group-item">
                                 ${this._generateAdminBadges(isActive)}
                             </li>
                         </ul>
                         <div class="card-body">
                             ${this._generateAdminProductButtonGroup(isActive, id)}
-                            <button type="button" onclick="editProductHandler(event)" class="btn btn-primary" data-product-id="${id}">Редагувати</button>
-                            <button type="button" class="btn btn-danger" onclick="onDeleteProduct(event)" data-product-id="${id}">Видалити</button>
+                            <button type="button" onclick="editProductHandler(event)" class="btn btn-primary" data-product-id="${id}">Edit</button>
+                            <button type="button" class="btn btn-danger" onclick="onDeleteProduct(event)" data-product-id="${id}">Delete</button>
                         </div> 
             `;
         }
@@ -181,15 +180,15 @@ class ProductsView {
                             <p class="card-text">${description}</p>
                         </div>
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item">Ціна: ${price} </li>
+                            <li class="list-group-item">Price: ${price} </li>
                             <li class="list-group-item">
                                 ${this._generateAdminBadges(isActive)}
                             </li>
                         </ul>
                         <div class="card-body">
                             ${this._generateAdminProductButtonGroup(isActive, id)}
-                            <button type="button" onclick="editProductHandler(event)" class="btn btn-primary" data-product-id="${id}">Редагувати</button>
-                            <button type="button" class="btn btn-danger" onclick="onDeleteProduct(event)" data-product-id="${id}">Видалити</button>
+                            <button type="button" onclick="editProductHandler(event)" class="btn btn-primary" data-product-id="${id}">Edit</button>
+                            <button type="button" class="btn btn-danger" onclick="onDeleteProduct(event)" data-product-id="${id}">Delete</button>
                         </div> 
                         </div>
                         </div>
@@ -313,3 +312,4 @@ class EditProfile {
         });
     }
 }
+

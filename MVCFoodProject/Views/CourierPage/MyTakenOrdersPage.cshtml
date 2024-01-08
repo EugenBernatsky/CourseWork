@@ -22,12 +22,10 @@ else
                 </h2>
                 <div id="collapseorder-@order.i" class="accordion-collapse collapse" aria-labelledby="headingOne">
                     <div class="accordion-body">
-
                         <div style="margin-bottom: 16px">
-                            <button style="margin-right:10px">Complete Order</button>
-                            <button>Cancel Order</button>
+                            <button type="button" class="btn btn-success" style="margin-right:10px" data-order-id="@order.value.Id" onclick="onCompleteOrder(event)">Complete Order</button>
+                            <button type="button" class="btn btn-danger" data-order-id="@order.value.Id" data-action="untake" onclick="onToggleOrder(event)">Cancel Order</button>
                         </div>
-
                         @if (order.value.UserId != null)
                         {
                             <div class="accordion" id="accordion-@order.value.UserId" style="margin-bottom:10px">
@@ -39,9 +37,15 @@ else
                                     </h2>
                                     <div id="collapse-@order.i-@order.value.UserId" class="accordion-collapse collapse" aria-labelledby="headingOne">
                                         <div class="accordion-body">
-                                            <div class="d-flex flex-column bd-highlight mb-3">
-                                                <div class="p-2 bd-highlight">Name: @(order?.value?.User?.Name ?? "")</div>
-                                                <div class="p-2 bd-highlight">Number: @(order?.value?.User?.Number ?? "")</div>
+                                            <div class="d-flex align-items-center bd-highlight mb-3">
+                                                <div style="width:100px">
+                                                    <img src="@order.value.User.imgURL" class="img-fluid img-thumbnail">
+                                                </div>
+                                                <div class="d-flex flex-column bd-highlight mb-3">
+                                                    <div class="p-2 bd-highlight">Name: @(order?.value?.User?.Name ?? "")</div>
+                                                    <div class="p-2 bd-highlight">Number: @(order?.value?.User?.Number ?? "")</div>
+                                                    <div class="p-2 bd-highlight">Address: @(order?.value?.User?.Adress ?? "")</div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

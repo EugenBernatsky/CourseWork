@@ -126,7 +126,7 @@ namespace MVCFoodProject.Controllers
         }
 
         [AllowAnonymous]
-        public async Task<object> UsersPage ()
+        public async Task<ActionResult> UsersPage ()
         {
             var contextUser = (Users)HttpContext.Items["User"];
 
@@ -136,9 +136,10 @@ namespace MVCFoodProject.Controllers
             }
 
             var users = await _db.User
-                .Where(u => u.Role == Users.UserRole.Customer)
+                //.Where(u => u.Role == Users.UserRole.Customer)
                 .Include(u => u.UserOrders)
                 .ThenInclude(userOrder => userOrder.Courier)
+                .ThenInclude(c => c.User)
                 .Include(u => u.UserOrders)
                 .ThenInclude(uo => uo.ProductOrders)
                 .ThenInclude(po => po.Product)

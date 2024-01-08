@@ -23,7 +23,7 @@ else
                 <div id="collapseorder-@order.i" class="accordion-collapse collapse" aria-labelledby="headingOne">
                     <div class="accordion-body">
 
-                        <button style="margin-bottom:16px"> Take order</button>
+                        <button type="button" class="btn btn-primary" style="margin-bottom:16px" data-order-id="@order.value.Id" data-action="take" onclick="onToggleOrder(event)"> Take order</button>
 
                         @if (order.value.UserId != null)
                         {
@@ -36,9 +36,15 @@ else
                                     </h2>
                                     <div id="collapse-@order.i-@order.value.UserId" class="accordion-collapse collapse" aria-labelledby="headingOne">
                                         <div class="accordion-body">
-                                            <div class="d-flex flex-column bd-highlight mb-3">
-                                                <div class="p-2 bd-highlight">Name: @(order?.value?.User?.Name ?? "")</div>
-                                                <div class="p-2 bd-highlight">Number: @(order?.value?.User?.Number ?? "")</div>
+                                            <div class="d-flex align-items-center bd-highlight mb-3">
+                                                <div style="width:100px">
+                                                    <img src="@order.value.User.imgURL" class="img-fluid img-thumbnail">
+                                                </div>
+                                                <div class="d-flex flex-column bd-highlight mb-3">
+                                                    <div class="p-2 bd-highlight">Name: @(order?.value?.User?.Name ?? "")</div>
+                                                    <div class="p-2 bd-highlight">Number: @(order?.value?.User?.Number ?? "")</div>
+                                                    <div class="p-2 bd-highlight">Address: @(order?.value?.User?.Adress ?? "")</div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -63,7 +69,7 @@ else
                                                 <div class="p-2 bd-highlight">
                                                     <div class="d-flex align-items-center">
                                                         <div class="" style="width: 100px; padding-left: 0px;  padding-right: 0px;">
-                                                            <img src="@productorder.value.Product.ProductsDetails.imgURL" class="img-fluid">
+                                                            <img src="@productorder.value.Product.ProductsDetails.imgURL" class="img-fluid img-thumbnail">
                                                         </div>
                                                         <div class="flex-grow-1 ms-3 justify-content-between">
                                                             <div>@productorder.value.Product.ProductsDetails.ProductName</div>

@@ -16,30 +16,28 @@
             <div class="modal-body">
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary edit-cancel" data-bs-dismiss="modal">Закрити</button>
-                <button type="button" class="btn btn-primary edit-submit">Зберігти</button>
+                <button type="button" class="btn btn-secondary edit-cancel" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary edit-submit">Save</button>
             </div>
-
-
         </div>
     </div>
 </div>
 
-<dvi class="products-pizza">
+<div class="products-pizza">
     <div class="d-flex">
         <div class="btn-group mt-4 ms-auto me-2">
             <button type="button" class="btn btn-info dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                Сортування
+                Sort
             </button>
             <ul class="dropdown-menu sort-buttons" data-category="PIZZA">
                 <li>
                     <button class="dropdown-item active" onclick="onSort(event)" data-category="PIZZA" data-sort="ASC" data-field="name">
-                        Назва: A-z
+                        Sort by name: A-z
                      </button>
-                    </li>
-                <li><button class="dropdown-item" onclick="onSort(event)" data-category="PIZZA" data-sort="DESC" data-field="name">Назва: Z-A</button></li>
-                <li><button class="dropdown-item" onclick="onSort(event)" data-category="PIZZA" data-sort="ASC" data-field="price">Цiна: ASC</button></li>
-                <li><button class="dropdown-item" onclick="onSort(event)" data-category="PIZZA" data-sort="DESC" data-field="price">Цiна: DESC</button></li>
+                </li>
+                <li><button class="dropdown-item" onclick="onSort(event)" data-category="PIZZA" data-sort="DESC" data-field="name">Sort by name: Z-A</button></li>
+                <li><button class="dropdown-item" onclick="onSort(event)" data-category="PIZZA" data-sort="ASC" data-field="price">Price: ASC</button></li>
+                <li><button class="dropdown-item" onclick="onSort(event)" data-category="PIZZA" data-sort="DESC" data-field="price">Price: DESC</button></li>
             </ul>
         </div>
     </div>
@@ -56,28 +54,28 @@
                             <p class="card-text">@product.ProductsDetails.Description</p>
                         </div>
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item">Ціна: @product.ProductsDetails.Price </li>
+                            <li class="list-group-item">Price: @product.ProductsDetails.Price </li>
                             <li class="list-group-item">
                                 @if (product.IsActive)
                                 {
-                                    <span class="badge rounded-pill bg-success">Активний</span>
+                                    <span class="badge rounded-pill bg-success">Active</span>
                                 } else
                                 {
-                                    <span class="badge rounded-pill bg-danger">Вимкнений</span>
+                                    <span class="badge rounded-pill bg-danger">Inactive</span>
                                 }
                             </li>
                         </ul>
                         <div class="card-body">
                             @if (product.IsActive)
                             {
-                                <button type="button" class="btn btn-warning" onclick="onToggleProduct(event)" data-action="disactivate" data-product-id="@product.InternalId">Вимкнути</button>
+                                <button type="button" class="btn btn-warning" onclick="onToggleProduct(event)" data-action="disactivate" data-product-id="@product.InternalId">Turn off</button>
                             }
                             else
                             {
-                                <button type="button" class="btn btn-success" onclick="onToggleProduct(event)"  data-action="activate" data-product-id="@product.InternalId">Увімкнути</button>
+                                <button type="button" class="btn btn-success" onclick="onToggleProduct(event)"  data-action="activate" data-product-id="@product.InternalId">Turn on</button>
                             }
-                            <button type="button" class="btn btn-primary" onclick="editProductHandler(event)" data-product-id="@product.InternalId">Редагувати</button>
-                            <button type="button" class="btn btn-danger" onclick="onDeleteProduct(event)" data-product-id="@product.InternalId">Видалити</button>
+                            <button type="button" class="btn btn-primary" onclick="editProductHandler(event)" data-product-id="@product.InternalId">Edit</button>
+                            <button type="button" class="btn btn-danger" onclick="onDeleteProduct(event)" data-product-id="@product.InternalId">Delete</button>
                         </div>
                     </div>
                 </div>
@@ -85,23 +83,24 @@
         }
         
     </div>
-</dvi>
+</div>
 
-<dvi class="sushi-pizza">
+
+<div class="sushi-pizza">
     <div class="d-flex">
         <div class="btn-group mt-4 ms-auto me-2">
             <button type="button" class="btn btn-info dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                Сортування
+                Sort
             </button>
             <ul class="dropdown-menu sort-buttons" data-category="SUSHI">
                 <li>
                     <button class="dropdown-item active" onclick="onSort(event)" data-category="SUSHI" data-sort="ASC" data-field="name">
-                        Назва: A-z
+                        Sort by name: A-z
                     </button>
                 </li>
-                <li><button class="dropdown-item" onclick="onSort(event)" data-category="SUSHI" data-sort="DESC" data-field="name">Назва: Z-A</button></li>
-                <li><button class="dropdown-item" onclick="onSort(event)" data-category="SUSHI" data-sort="ASC" data-field="price">Цiна: ASC</button></li>
-                <li><button class="dropdown-item" onclick="onSort(event)" data-category="SUSHI" data-sort="DESC" data-field="price">Цiна: DESC</button></li>
+                <li><button class="dropdown-item" onclick="onSort(event)" data-category="SUSHI" data-sort="DESC" data-field="name">Sort by name: Z-A</button></li>
+                <li><button class="dropdown-item" onclick="onSort(event)" data-category="SUSHI" data-sort="ASC" data-field="price">Price: ASC</button></li>
+                <li><button class="dropdown-item" onclick="onSort(event)" data-category="SUSHI" data-sort="DESC" data-field="price">Price: DESC</button></li>
             </ul>
         </div>
     </div>
@@ -118,29 +117,29 @@
                             <p class="card-text">@product.ProductsDetails.Description</p>
                         </div>
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item">Ціна: @product.ProductsDetails.Price </li>
+                            <li class="list-group-item">Price: @product.ProductsDetails.Price </li>
                             <li class="list-group-item">
                                 @if (product.IsActive)
                                 {
-                                    <span class="badge rounded-pill bg-success">Активний</span>
+                                    <span class="badge rounded-pill bg-success">Active</span>
                                 }
                                 else
                                 {
-                                    <span class="badge rounded-pill bg-danger">Вимкнений</span>
+                                    <span class="badge rounded-pill bg-danger">Inactive</span>
                                 }
                             </li>
                         </ul>
                         <div class="card-body">
                             @if (product.IsActive)
                             {
-                                <button type="button" class="btn btn-warning" onclick="onToggleProduct(event)" data-action="disactivate" data-product-id="@product.InternalId">Вимкнути</button>
+                                <button type="button" class="btn btn-warning" onclick="onToggleProduct(event)" data-action="disactivate" data-product-id="@product.InternalId">Turn off</button>
                             }
                             else
                             {
-                                <button type="button" class="btn btn-success" onclick="onToggleProduct(event)" data-action="activate" data-product-id="@product.InternalId">Увімкнути</button>
+                                <button type="button" class="btn btn-success" onclick="onToggleProduct(event)" data-action="activate" data-product-id="@product.InternalId">Turn on</button>
                             }
-                            <button type="button" class="btn btn-primary" onclick="editProductHandler(event)" data-product-id="@product.InternalId">Редагувати</button>
-                            <button type="button" class="btn btn-danger" onclick="onDeleteProduct(event)" data-product-id="@product.InternalId">Видалити</button>
+                            <button type="button" class="btn btn-primary" onclick="editProductHandler(event)" data-product-id="@product.InternalId">Edit</button>
+                            <button type="button" class="btn btn-danger" onclick="onDeleteProduct(event)" data-product-id="@product.InternalId">Delete</button>
                         </div>
                     </div>
                 </div>
@@ -148,24 +147,148 @@
         }
 
     </div>
-</dvi>
+</div>
 
-
-<dvi class="drinks-pizza">
+<div class="sushi-set-pizza">
     <div class="d-flex">
         <div class="btn-group mt-4 ms-auto me-2">
             <button type="button" class="btn btn-info dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                Сортування
+                Sort
+            </button>
+            <ul class="dropdown-menu sort-buttons" data-category="SUSHI-SET">
+                <li>
+                    <button class="dropdown-item active" onclick="onSort(event)" data-category="SUSHI" data-sort="ASC" data-field="name">
+                        Sort by name: A-z
+                    </button>
+                </li>
+                <li><button class="dropdown-item" onclick="onSort(event)" data-category="SUSHI-SET" data-sort="DESC" data-field="name">Sort by name: Z-A</button></li>
+                <li><button class="dropdown-item" onclick="onSort(event)" data-category="SUSHI-SET" data-sort="ASC" data-field="price">Sort by name: ASC</button></li>
+                <li><button class="dropdown-item" onclick="onSort(event)" data-category="SUSHI-SET" data-sort="DESC" data-field="price">Sort by name: DESC</button></li>
+            </ul>
+        </div>
+    </div>
+    <div class="row mt-3 gy-3 products-list-container" data-category="SUSHI-SET">
+        @foreach (var product in Model.Products)
+        {
+            @if (product.CategoryType == "SUSHI-SET")
+            {
+                <div class="col col-4 d-flex justify-content-center">
+                    <div class="card " style="width: 25rem;" data-product-id="@product.InternalId">
+                        <img style="height: 300px; max-width: 100%; object-fit: contain;" src="@product.ProductsDetails.imgURL" class="card-img-top" alt="@product.ProductsDetails.ProductName">
+                        <div class="card-body">
+                            <h5 class="card-title">@product.ProductsDetails.ProductName</h5>
+                            <p class="card-text">@product.ProductsDetails.Description</p>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Price: @product.ProductsDetails.Price </li>
+                            <li class="list-group-item">
+                                @if (product.IsActive)
+                                {
+                                    <span class="badge rounded-pill bg-success">Active</span>
+                                }
+                                else
+                                {
+                                    <span class="badge rounded-pill bg-danger">Inactive</span>
+                                }
+                            </li>
+                        </ul>
+                        <div class="card-body">
+                            @if (product.IsActive)
+                            {
+                                <button type="button" class="btn btn-warning" onclick="onToggleProduct(event)" data-action="disactivate" data-product-id="@product.InternalId">Turn off</button>
+                            }
+                            else
+                            {
+                                <button type="button" class="btn btn-success" onclick="onToggleProduct(event)" data-action="activate" data-product-id="@product.InternalId">Turn on</button>
+                            }
+                            <button type="button" class="btn btn-primary" onclick="editProductHandler(event)" data-product-id="@product.InternalId">Edit</button>
+                            <button type="button" class="btn btn-danger" onclick="onDeleteProduct(event)" data-product-id="@product.InternalId">Delete</button>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>
+
+<div class="salads-pizza">
+    <div class="d-flex">
+        <div class="btn-group mt-4 ms-auto me-2">
+            <button type="button" class="btn btn-info dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                Sort
+            </button>
+            <ul class="dropdown-menu sort-buttons" data-category="SALADS">
+                <li>
+                    <button class="dropdown-item active" onclick="onSort(event)" data-category="SALADS" data-sort="ASC" data-field="name">
+                        Sort by name: A-z
+                    </button>
+                </li>
+                <li><button class="dropdown-item" onclick="onSort(event)" data-category="SALADS" data-sort="DESC" data-field="name">Sort by name: Z-A</button></li>
+                <li><button class="dropdown-item" onclick="onSort(event)" data-category="SALADS" data-sort="ASC" data-field="price">Price: ASC</button></li>
+                <li><button class="dropdown-item" onclick="onSort(event)" data-category="SALADS" data-sort="DESC" data-field="price">Price: DESC</button></li>
+            </ul>
+        </div>
+    </div>
+    <div class="row mt-3 gy-3 products-list-container" data-category="SALADS">
+        @foreach (var product in Model.Products)
+        {
+            @if (product.CategoryType == "SALADS")
+            {
+                <div class="col col-4 d-flex justify-content-center">
+                    <div class="card " style="width: 25rem;" data-product-id="@product.InternalId">
+                        <img style="height: 300px; max-width: 100%; object-fit: contain;" src="@product.ProductsDetails.imgURL" class="card-img-top img-thumbnail" alt="@product.ProductsDetails.ProductName">
+                        <div class="card-body">
+                            <h5 class="card-title">@product.ProductsDetails.ProductName</h5>
+                            <p class="card-text">@product.ProductsDetails.Description</p>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Price: @product.ProductsDetails.Price</li>
+                            <li class="list-group-item">
+                                @if (product.IsActive)
+                                {
+                                    <span class="badge rounded-pill bg-success">Active</span>
+                                }
+                                else
+                                {
+                                    <span class="badge rounded-pill bg-danger">Inactive</span>
+                                }
+                            </li>
+                        </ul>
+                        <div class="card-body">
+                            @if (product.IsActive)
+                            {
+                                <button type="button" class="btn btn-warning" onclick="onToggleProduct(event)" data-action="disactivate" data-product-id="@product.InternalId">Turn off</button>
+                            }
+                            else
+                            {
+                                <button type="button" class="btn btn-success" onclick="onToggleProduct(event)" data-action="activate" data-product-id="@product.InternalId">Turn on</button>
+                            }
+                            <button type="button" class="btn btn-primary" onclick="editProductHandler(event)" data-product-id="@product.InternalId">Edit</button>
+                            <button type="button" class="btn btn-danger" onclick="onDeleteProduct(event)" data-product-id="@product.InternalId">Delete</button>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+
+    </div>
+</div>
+
+<div class="drinks-pizza">
+    <div class="d-flex">
+        <div class="btn-group mt-4 ms-auto me-2">
+            <button type="button" class="btn btn-info dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                Sort
             </button>
             <ul class="dropdown-menu sort-buttons" data-category="DRINKS">
                 <li>
                     <button class="dropdown-item active" onclick="onSort(event)" data-category="DRINKS" data-sort="ASC" data-field="name">
-                        Назва: A-z
+                        Sort by name: A-z
                     </button>
                 </li>
-                <li><button class="dropdown-item" onclick="onSort(event)" data-category="DRINKS" data-sort="DESC" data-field="name">Назва: Z-A</button></li>
-                <li><button class="dropdown-item" onclick="onSort(event)" data-category="DRINKS" data-sort="ASC" data-field="price">Цiна: ASC</button></li>
-                <li><button class="dropdown-item" onclick="onSort(event)" data-category="DRINKS" data-sort="DESC" data-field="price">Цiна: DESC</button></li>
+                <li><button class="dropdown-item" onclick="onSort(event)" data-category="DRINKS" data-sort="DESC" data-field="name">Sort by name: Z-A</button></li>
+                <li><button class="dropdown-item" onclick="onSort(event)" data-category="DRINKS" data-sort="ASC" data-field="price">Price: ASC</button></li>
+                <li><button class="dropdown-item" onclick="onSort(event)" data-category="DRINKS" data-sort="DESC" data-field="price">Price: DESC</button></li>
             </ul>
         </div>
     </div>
@@ -182,29 +305,29 @@
                             <p class="card-text">@product.ProductsDetails.Description</p>
                         </div>
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item">Ціна: @product.ProductsDetails.Price</li>
+                            <li class="list-group-item">Price: @product.ProductsDetails.Price</li>
                             <li class="list-group-item">
                                 @if (product.IsActive)
                                 {
-                                    <span class="badge rounded-pill bg-success">Активний</span>
+                                    <span class="badge rounded-pill bg-success">Active</span>
                                 }
                                 else
                                 {
-                                    <span class="badge rounded-pill bg-danger">Вимкнений</span>
+                                    <span class="badge rounded-pill bg-danger">Inactive</span>
                                 }
                             </li>
                         </ul>
                         <div class="card-body">
                             @if (product.IsActive)
                             {
-                                <button type="button" class="btn btn-warning" onclick="onToggleProduct(event)" data-action="disactivate" data-product-id="@product.InternalId">Вимкнути</button>
+                                <button type="button" class="btn btn-warning" onclick="onToggleProduct(event)" data-action="disactivate" data-product-id="@product.InternalId">Turn off</button>
                             }
                             else
                             {
-                                <button type="button" class="btn btn-success" onclick="onToggleProduct(event)" data-action="activate" data-product-id="@product.InternalId">Увімкнути</button>
+                                <button type="button" class="btn btn-success" onclick="onToggleProduct(event)" data-action="activate" data-product-id="@product.InternalId">Turn on</button>
                             }
-                            <button type="button" class="btn btn-primary" onclick="editProductHandler(event)" data-product-id="@product.InternalId">Редагувати</button>
-                            <button type="button" class="btn btn-danger" onclick="onDeleteProduct(event)" data-product-id="@product.InternalId">Видалити</button>
+                            <button type="button" class="btn btn-primary" onclick="editProductHandler(event)" data-product-id="@product.InternalId">Edit</button>
+                            <button type="button" class="btn btn-danger" onclick="onDeleteProduct(event)" data-product-id="@product.InternalId">Delete</button>
                         </div>
                     </div>
                 </div>
@@ -212,4 +335,4 @@
         }
 
     </div>
-</dvi>
+</div>

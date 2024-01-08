@@ -141,28 +141,28 @@
     <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top container">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#FoodDelivery">
-                    <img src="https://images.assetsdelivery.com/compings_v2/miracel123/miracel1231801/miracel123180100095.jpg" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
+                    <img src="/assets//pngwing.com.png" alt="Logo" width="35" height="35" class="d-inline-block align-text-top">
                     FoodDilivery
                 </a>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <div class="collapse navbar-collapse  d-flex" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="#pizza-section">
                             <img class="pizza-icon" src="~/assets/pizza.png" alt=""> Піца
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#pizza-section">
+                            <a class="nav-link" href="#sushi-section">
                                 <img class="sushi-icon" src="~/assets/sushi.png" alt=""> Суші
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#sets-section">
+                            <a class="nav-link" href="#sushi-set-section">
                                 <img class="sushisets-icon" src="~/assets/sushisets.png" alt=""> Сети
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#salats-section">
+                            <a class="nav-link" href="#salads-section">
                             <img class="salat-icon" src="~/assets/salat.png" alt=""> Салати
                             </a>
                         </li>
@@ -173,24 +173,24 @@
                         </li>
                     </ul>
                     <div class="d-flex justify-content-around" role="search">
-                     <div class="auth-wrapper">
-                        @if (Model.UserProfile != null)
-                        {
-                            <button type="button" class="btn btn-light" onclick="onRedirect('@Model.UserProfile.role')">Мій профіль</button>
-                        }
-                        else
-                        {
-                            <button type="button" class="btn btn-light" onclick="onOpenAuthModal()">Увійти в кабінет</button>
-                        }
-                     </div>
+                         <div class="auth-wrapper">
+                            @if (Model.UserProfile != null)
+                            {
+                                <button type="button" class="btn btn-light" onclick="onRedirect('@Model.UserProfile.role')">Мій профіль</button>
+                            }
+                            else
+                            {
+                                <button type="button" class="btn btn-light" onclick="onOpenAuthModal()">Увійти в кабінет</button>
+                            }
+                         </div>
                     
-                    <button type="button" class="btn btn-light" onclick="onOpenCartModal()">
-                            <img class="cart-icon" src="~/assets/cart.png" alt="">
-                            Кошик
-                         <span class="cart-items-count"></span>
-                        </button>
+                        <button type="button" class="btn btn-light" onclick="onOpenCartModal()">
+                                <img class="cart-icon" src="~/assets/cart.png" alt="">
+                                Кошик
+                             <span class="cart-items-count"></span>
+                         </button>
                     </div>
-                </div>
+            </div>
         </div>
        
     </nav>

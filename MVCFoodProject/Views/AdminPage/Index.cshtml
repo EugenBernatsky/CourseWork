@@ -5,25 +5,43 @@
     ViewData["Title"] = "Me";
 }
 <div>
-    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal fade edit-user-modal" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+                    <h5 class="modal-title" id="staticBackdropLabel">Редагувати профіль</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
-                    <label for="inputName5" class="form-label">Name</label>
-                    <input type="text" id="inputName5" class="form-control">
-                    <label for="inputNumber5" class="form-label">Number</label>
-                    <input type="text" id="inputNumber5" class="form-control">
-                    <label for="inputAdress5" class="form-label">Adress</label>
-                    <input type="text" id="inputAdress5" class="form-control">
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Understood</button>
-                </div>
+                <form class="edit-customer-form">
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="uplod-image" class="form-label">Завантажити нову картинку</label>
+                            <input type="file" accept="image/jpeg, image/png, image/jpg" class="form-control" id="uplod-image" placeholder="">
+                            <div class="image-preview d-flex justify-content-center mt-2">
+                                @if (Model.Me.imgURL != null)
+                                {
+                                    <img src="@Model.Me.imgURL" alt="avatar"
+                                         class="rounded-circle img-fluid" style="width: 150px;">
+                                }
+                                else
+                                {
+                                    <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar"
+                                         class="rounded-circle img-fluid" style="width: 150px;">
+                                }
+                            </div>
+                        </div>
+                        <label for="inputName5" class="form-label">Name</label>
+                        <input type="text" id="inputName5" class="form-control" name="name" value="@Model.Me.Name">
+                        <label for="inputNumber5" class="form-label">Number</label>
+                        <input type="text" id="inputNumber5" class="form-control" name="number" value="@Model.Me.Number">
+                        <label for="inputAdress5" class="form-label">Adress</label>
+                        <input type="text" id="inputAdress5" class="form-control" name="adress" value="@Model.Me.Adress">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary handler" data-bs-dismiss="modal">Закрити</button>
+                        <button type="submit" class="btn btn-primary handler">Зберігти</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -35,7 +53,7 @@
             <div class="row">
                 <div class="col-lg-4">
                     <div class="card mb-4">
-                        <div class="card-body text-center">
+                        <div class="card-body customer-avatar text-center">
                             @if (Model.Me.imgURL != null)
                             {
                                 <img src="@Model.Me.imgURL" alt="avatar"
@@ -46,10 +64,10 @@
                                      class="rounded-circle img-fluid" style="width: 150px;">
                             }
                             
-                            <h5 class="my-3">@Model.Me.Name</h5>
+                            <h5 class="my-3 customer-profile-name">@Model.Me.Name</h5>
                             <p class="text-muted mb-1">Admin</p>
                             <div class="d-flex justify-content-center mb-2">
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Edit</button>
+                                <button type="button" class="btn btn-primary edit-user-profile-btn">Edit</button>
                             </div>
                         </div>
                     </div>
@@ -63,7 +81,7 @@
                                     <p class="mb-0">Full Name</p>
                                 </div>
                                 <div class="col-sm-9">
-                                    <p class="text-muted mb-0">@Model.Me.Name</p>
+                                    <p class="text-muted mb-0 customer-name">@Model.Me.Name</p>
                                 </div>
                             </div>
                             <hr>
@@ -72,7 +90,7 @@
                                     <p class="mb-0">Phone</p>
                                 </div>
                                 <div class="col-sm-9">
-                                    <p class="text-muted mb-0">@Model.Me.Number</p>
+                                    <p class="text-muted mb-0 customer-phone">@Model.Me.Number</p>
                                 </div>
                             </div>
                             <hr>
@@ -81,7 +99,7 @@
                                     <p class="mb-0">Address</p>
                                 </div>
                                 <div class="col-sm-9">
-                                    <p class="text-muted mb-0">@Model.Me.Adress</p>
+                                    <p class="text-muted mb-0 customer-address">@Model.Me.Adress</p>
                                 </div>
                             </div>
                         </div>

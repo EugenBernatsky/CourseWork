@@ -28,22 +28,6 @@ namespace MVCFoodProject.Controllers
                 .Where(u => u.Id == contextUser.Id)
                 .FirstOrDefaultAsync();
 
-            //user.Name = body.Name ?? user.Name;
-            //user.Adress = body.Adress ?? user.Adress;
-            //user.Number = body.Number ?? user.Number;
-            //user.imgURL = body.imgURL ?? user.imgURL;
-
-            //try
-            //{
-            //    if(_db.ChangeTracker.HasChanges())
-            //    {
-            //        await _db.SaveChangesAsync();
-            //    }
-            //}catch(Exception ex)
-            //{
-            //    return BadRequest(ex.Message);
-            //}
-
             return Ok(user);
         }
     }

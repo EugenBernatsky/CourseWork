@@ -119,24 +119,24 @@ class ProductEditor {
     _initEditor() {
         this._editorContainer.innerHTML = `
             <div class="mb-3">
-                    <label for="uplod-image" class="form-label">Завантажити нову картинку</label>
+                    <label for="uplod-image" class="form-label">Upload a new picture</label>
                     <input type="file" accept="image/jpeg, image/png, image/jpg" class="form-control" id="uplod-image" placeholder="">
                     <div class="image-preview d-flex justify-content-center mt-2">
                         <img src="${this._image}" class="img-thumbnail upload-img-preview" alt="...">
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label for="edit-product-name" class="form-label">Редагувати назву продукта</label>
-                    <input type="text" class="form-control" id="edit-product-name" placeholder="Редагувати назву продукта" value="${this._productName}">
+                    <label for="edit-product-name" class="form-label">Edit product name</label>
+                    <input type="text" class="form-control" id="edit-product-name" placeholder="Edit product name" value="${this._productName}">
                 </div>
                 <div class="mb-3">
-                    <label for="edit-product-description" class="form-label">Редагувати опис продукта</label>
-                    <input type="text" class="form-control" id="edit-product-description" placeholder="Редагувати опис продукта" value="${this._description}">
+                    <label for="edit-product-description" class="form-label">Edit product description</label>
+                    <input type="text" class="form-control" id="edit-product-description" placeholder="Edit product description" value="${this._description}">
                 </div>
 
                 <div class="mb-3">
-                    <label for="edit-product-price" class="form-label">Редагувати ціну</label>
-                    <input type="number" class="form-control" id="edit-product-price" placeholder="Редагувати ціну" value="${this._price}">
+                    <label for="edit-product-price" class="form-label">Edit price</label>
+                    <input type="number" class="form-control" id="edit-product-price" placeholder="Edit price" value="${this._price}">
                 </div>
         
         `
@@ -270,3 +270,16 @@ function onDeleteProduct({ target }) {
             console.error(e)
         })
 }
+
+function onToggleRole(event) {
+    const payload = {
+        Id: event.target.getAttribute('data-user-id'),
+        action: event.target.getAttribute('data-action')
+    };
+
+    apiCLientInstance.post(`/users/toggle-role`, payload).catch(e => {
+        console.error(e)
+    });
+            
+}
+

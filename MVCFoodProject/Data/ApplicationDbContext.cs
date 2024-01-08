@@ -23,7 +23,6 @@ namespace MVCFoodProject.Data
                 .HasForeignKey(x => x.UserId)
                 .OnDelete(DeleteBehavior.NoAction);
 
-
             base.OnModelCreating(modelBuilder);
         }
 

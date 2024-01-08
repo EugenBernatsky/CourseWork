@@ -7,6 +7,7 @@
             const editor = document.querySelector('.edit-customer-form');
             const customerAvatar = document.querySelector('.customer-avatar img');
             const customerName = document.querySelector('.customer-name');
+            const customerProfileName = document.querySelector('.customer-profile-name');
             const customerPhone = document.querySelector('.customer-phone');
             const customerAddress = document.querySelector('.customer-address');
             
@@ -17,6 +18,7 @@
 
             if (res.data.name) {
                 customerName.innerHTML = res.data.name;
+                customerProfileName.innerHTML = res.data.name;
                 editor.querySelector('input[name="name"]').value = res.data.name;
             }
 
@@ -35,3 +37,5 @@
         }
     })
 })
+
+

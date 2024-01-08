@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MVCFoodProject.Models.DataBase;
 
 namespace MVCFoodProject.Controllers
 {
@@ -39,8 +40,8 @@ namespace MVCFoodProject.Controllers
             return Ok(product);
         }
 
+
         [HttpPost("/products/product/edit/{id}")]
-        
         public async Task<ActionResult> EditProduct ([FromRoute] string id, [FromForm] EditProductDTO body)
         {
             var product = await _db.Products.Where(p => p.InternalId == id && p.Deleted != true)
@@ -132,5 +133,76 @@ namespace MVCFoodProject.Controllers
 
             return NoContent();
         }
+
+        [HttpPost("/users/toggle-role")]
+        public async Task<ActionResult> ToggleRole([FromBody] ToggleUserRoleDTO body)
+        {
+            if (body.action == ToggleUserRoleDTO.ACTION.role_courier)
+            {
+                var user = await _db.User
+                .Where(u => u.Id == body.Id)
+                .FirstOrDefaultAsync();
+
+                try
+                {
+                    if (user != null)
+                    {
+                        user.Role = Users.UserRole.Courier;
+
+                        var courier = new Courier();
+                        courier.User = user;
+
+                        _db.Courier.Add(courier);
+                    }
+
+                    if (_db.ChangeTracker.HasChanges())
+                    {
+                        await _db.SaveChangesAsync();
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    return BadRequest(ex.Message);
+                }
+            }
+
+            if (body.action == ToggleUserRoleDTO.ACTION.role_customer)
+            {
+                var courier = await _db.Courier
+                    .Where(c => c.Id == body.Id)
+                    .Include(c => c.User)
+                    .FirstOrDefaultAsync();
+
+                try
+                {
+                    if (courier.Order.Any())
+                    {
+                        return Ok(new { HasOrders = true });
+                    }
+
+                    if (courier != null && !courier.Order.Any())
+                    {
+                        courier.User.Role = Users.UserRole.Customer;
+
+                        _db.Courier.Remove(courier);
+                    }
+
+                    if (_db.ChangeTracker.HasChanges())
+                    {
+                        await _db.SaveChangesAsync();
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    return BadRequest(ex.Message);
+                }
+            }
+
+
+            return Ok();
+        }
+
     }
 }

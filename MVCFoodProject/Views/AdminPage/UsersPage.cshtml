@@ -1,13 +1,13 @@
 ﻿@model MVCFoodProject.Models.ViewModels.AdminPageViewModel;
 
-
-<table class="table">
+<table class="table text-center">
     <thead>
         <tr>
             <th scope="col">#</th>
-            <th scope="col">User Name</th>
-            <th scope="col">Phone</th>
-            <th scope="col">Address</th>
+            <th scope="col" class="col-1">Photo</th>
+            <th scope="col" class="col-2">User Name</th>
+            <th scope="col" >Role</th>
+            <th scope="col" >More details</th>
             <th scope="col">Orders</th>
         </tr>
     </thead>
@@ -15,22 +15,71 @@
         @foreach (var user in Model.UsersList.Select((value, i) => new { i = i + 1, value }))
         {
             <tr>
-                <th scope="col">@user.i </th>
-                <th scope="col">@user.value.Name</th>
-                <th scope="col">@user.value.Number</th>
-                <th scope="col">@user.value.Adress</th>
-                <th scope="col">
+                <th scope="row" class="align-middle">@user.i </th>
+                <td  class="align-middle">
+                    <div style="width:60px">
+                        <img src="@user.value.imgURL" class="img-fluid" width:40px >
+                    </div>
+                </td>
+                <th class="align-middle">@user.value.Name</th>
+                <td class="align-middle">
+                    @if (user.value.Role == Users.UserRole.Admin)
+                    {
+                        <div class="p-2 bg-danger d-inline-flex">@user.value.Role</div>
+                    }
+                    @if (user.value.Role == Users.UserRole.Courier)
+                    {
+                        <div class="p-2 bg-warning d-inline-flex">@user.value.Role</div>
+                    }
+
+                    @if (user.value.Role == Users.UserRole.Customer)
+                    {
+                        <button type="button" class="btn btn-warning" data-user-id="@user.value.Id" data-action="role_courier" onclick="onToggleRole(event)">
+                                Make "Courier"
+                        </button>
+                    }
+                </td>
+                <td class="align-middle">
+                    <button type="button" class="btn btn-info" data-bs-toggle="collapse" data-bs-target="#userdetails-@user.i" aria-expanded="false" aria-controls="collapseExample">
+                        View
+                    </button>
+                </td>
+                <td class="align-middle">
                     <button type="button" class="btn btn-info" data-bs-toggle="collapse" data-bs-target="#collapse-@user.i" aria-expanded="false" aria-controls="collapseExample">
                         Orders
                     </button>
-                </th>
+                </td>
             </tr>
+
+            <tr class="collapse table-info" id="userdetails-@user.i">
+                <td colspan="12" class="hiddenRow">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">Id</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Address</th>
+                                <th scope="col">Phone Number</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row" class="col-1 align-middle">@user.value.Id</th>
+                                <td class="col-1 align-middle">@user.value.Email</td>
+                                <td class="col-7 align-middle">@user.value.Adress</td>
+                                <td>@user.value.Number</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+
             <tr class="collapse" id="collapse-@user.i">
                 <td colspan="12" class="hiddenRow">
                     <table class="table table-dark table-striped">
                         <thead>
                             <tr>
-                                <th scope="col">#</th>
+                                <th scope="col" >#</th>
                                 <th scope="col">Id</th>
                                 <th scope="col">CreatedDate</th>
                                 <th>Total Price</th>
@@ -43,25 +92,24 @@
                             @foreach (var order in user.value.UserOrders.Select((value, i) => new { i = i + 1, value }))
                             {
                                 <tr>
-                                    <th scope="row">@order.i</th>
-                                    <th scope="col">@order.value.Id</th>
-                                    <th scope="col">@order.value.CreatedDate</th>
-                                    <th scope="col">@order.value.TotalPrice</th>
-                                    <th scope="col">
+                                    <th scope="row" class="align-middle">@order.i</th>
+                                    <th scope="col" class="align-middle">@order.value.Id</th>
+                                    <th scope="col" class="align-middle">@order.value.CreatedDate</th>
+                                    <th scope="col" class="align-middle">@order.value.TotalPrice</th>
+                                    <th scope="col" class="align-middle">
                                         <button type="button" class="btn btn-info" data-bs-toggle="collapse" data-bs-target="#products-@user.i-@order.i" aria-expanded="false" aria-controls="#products-@user.i-@order.i">
                                             Product
                                         </button>
                                     </th>
-                                    <th scope="col">
+                                    <th scope="col" class="align-middle">
                                         <button type="button" class="btn btn-info" data-bs-toggle="collapse" data-bs-target="#courier-@user.i-@order.i" aria-expanded="false" aria-controls="#courier-@user.i-@order.i">
                                             Courier
                                         </button>
                                     </th>
-                                    <th scope="col">
+                                    <th scope="col" class="align-middle">
                                         <button type="button" class="btn btn-info">
                                             @Html.ActionLink("Preview Order", "OrderPage", "AdminPage", new { orderID = order.value.Id }, new { @class = "nav-link", target = "_blank" })
                                         </button>
-                                        
                                     </th>
                                 </tr>
                                 <tr class="collapse table-info" id="courier-@user.i-@order.i">
@@ -77,15 +125,14 @@
                                             </thead>
                                             <tbody>
                                                 <tr>
-                                                    <th scope="row">1</th>
-                                                    <th scope="col">@order.value?.Courier?.Id</th>
-                                                    <th scope="col">@(order?.value?.Courier?.User?.Name ?? "")</th>
-                                                    <th scope="col">@(order?.value?.Courier?.User?.Number ?? "")</th>
+                                                    <th scope="row" class="align-middle">1</th>
+                                                    <th scope="col" class="align-middle">@order?.value?.Courier?.Id</th>
+                                                    <th scope="col" class="align-middle">@(order?.value?.Courier?.User?.Name ?? "Null")</th>
+                                                    <th scope="col" class="align-middle">@(order?.value?.Courier?.User?.Number ?? "Null")</th>
                                                 </tr>
                                             </tbody>
                                         </table>
                                     </td>
-                                    
                                 </tr>
                                 <tr class="collapse" id="products-@user.i-@order.i">
                                     <td colspan="12" class="hiddenRow">
@@ -122,19 +169,19 @@
                                                         </th>
                                                     </tr>
                                                 }
-                                                
+
                                             </tbody>
                                         </table>
                                     </td>
 
                                 </tr>
                             }
-                           
+
                         </tbody>
                     </table>
                 </td>
             </tr>
         }
-        
+
     </tbody>
 </table>

@@ -7,8 +7,8 @@ namespace MVCFoodProject.Models.DataBase
         [Key]
         public int Id { get; set; }
 
-        public ICollection<Orders>? Order { get; set; }
- 
+        public ICollection<Orders>? Order { get; set; } = new List<Orders>();
+
         public Status status { get; set; } = Status.free;
 
         public Users? User { get; set; }
